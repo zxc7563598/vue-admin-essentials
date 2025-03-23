@@ -15,6 +15,7 @@
     "@arco-design/color": "^0.4.0",
     "@vueuse/core": "^12.7.0",
     "axios": "^1.8.1",
+    "crypto-js": "^4.2.0",
     "dayjs": "^1.11.13",
     "echarts": "^5.6.0",
     "lodash-es": "^4.17.21",

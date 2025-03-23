@@ -19,12 +19,7 @@
           <i v-if="userIds.length" class="i-material-symbols:delete-outline mr-4 text-18" />
           批量取消授权
         </NButton>
-        <NButton
-          class="ml-12"
-          :disabled="!userIds.length"
-          type="primary"
-          @click="handleBatchAdd()"
-        >
+        <NButton class="ml-12" :disabled="!userIds.length" type="primary" @click="handleBatchAdd()">
           <i v-if="userIds.length" class="i-line-md:confirm-circle mr-4 text-18" />
           批量授权
         </NButton>
@@ -32,20 +27,11 @@
     </template>
 
     <MeCrud
-      ref="$table"
-      v-model:query-items="queryItems"
-      :scroll-x="1200"
-      :columns="columns"
-      :get-data="api.getAllUsers"
-      @on-checked="onChecked"
+      ref="$table" v-model:query-items="queryItems" :scroll-x="1200" :columns="columns"
+      :get-data="api.getAllUsers" @on-checked="onChecked"
     >
       <MeQueryItem label="用户名" :label-width="50">
-        <n-input
-          v-model:value="queryItems.username"
-          type="text"
-          placeholder="请输入用户名"
-          clearable
-        />
+        <n-input v-model:value="queryItems.username" type="text" placeholder="请输入用户名" clearable />
       </MeQueryItem>
 
       <MeQueryItem label="性别" :label-width="50">
@@ -54,9 +40,7 @@
 
       <MeQueryItem label="状态" :label-width="50">
         <n-select
-          v-model:value="queryItems.enable"
-          clearable
-          :options="[
+          v-model:value="queryItems.enable" clearable :options="[
             { label: '启用', value: 1 },
             { label: '停用', value: 0 },
           ]"
@@ -206,7 +190,7 @@ function handleBatchAdd(ids = userIds.value) {
   $dialog.confirm({
     content: `确认分配【${route.query.roleName}】？`,
     async confirm() {
-      await api.addRoleUsers(roleId, { userIds: ids })
+      await api.changeRoleUsers({ role_id: roleId, userIds: ids, give: true })
       $table.value?.handleSearch()
     },
   })
@@ -220,7 +204,7 @@ function handleBatchRemove(ids = userIds.value) {
   $dialog.confirm({
     content: `确认取消分配【${route.query.roleName}】？`,
     async confirm() {
-      await api.removeRoleUsers(roleId, { userIds: ids })
+      await api.changeRoleUsers({ role_id: roleId, userIds: ids, give: false })
       $table.value?.handleSearch()
     },
   })

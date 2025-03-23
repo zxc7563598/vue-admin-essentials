@@ -10,12 +10,7 @@
   <CommonPage>
     <div class="flex">
       <n-spin size="small" :show="treeLoading">
-        <MenuTree
-          v-model:current-menu="currentMenu"
-          class="w-320 shrink-0"
-          :tree-data="treeData"
-          @refresh="initData"
-        />
+        <MenuTree v-model:current-menu="currentMenu" class="w-320 shrink-0" :tree-data="treeData" @refresh="initData" />
       </n-spin>
 
       <div class="ml-40 w-0 flex-1">
@@ -77,10 +72,7 @@
           </div>
 
           <MeCrud
-            ref="$table"
-            :columns="btnsColumns"
-            :scroll-x="-1"
-            :get-data="api.getButtons"
+            ref="$table" :columns="btnsColumns" :scroll-x="-1" :get-data="api.getButtons"
             :query-items="{ parentId: currentMenu.id }"
           />
         </template>
@@ -225,7 +217,7 @@ function handleDeleteBtn(id) {
     async onPositiveClick() {
       try {
         d.loading = true
-        await api.deletePermission(id)
+        await api.deletePermission({ id })
         $message.success('删除成功')
         $table.value.handleSearch()
         d.loading = false
@@ -241,7 +233,8 @@ function handleDeleteBtn(id) {
 async function handleEnable(item) {
   try {
     item.enableLoading = true
-    await api.savePermission(item.id, {
+    await api.changeMenuEnable({
+      id: item.id,
       enable: !item.enable,
     })
     $message.success('操作成功')

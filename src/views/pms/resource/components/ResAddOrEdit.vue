@@ -222,7 +222,7 @@ async function onSave() {
       newFormData = res.data
     }
     else if (modalAction.value === 'edit') {
-      await api.savePermission(modalForm.value.id, modalForm.value)
+      await api.savePermission(modalForm.value)
     }
     okLoading.value = false
     $message.success('保存成功')

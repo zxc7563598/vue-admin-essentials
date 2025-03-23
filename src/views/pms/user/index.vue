@@ -303,7 +303,7 @@ function onSave() {
   }
   else if (modalAction.value === 'reset') {
     return handleSave({
-      api: () => api.resetPwd(modalForm.value.id, modalForm.value),
+      api: () => api.resetPwd({ id: modalForm.value.id, password: modalForm.value.password }),
       cb: () => $message.success('密码重置成功'),
     })
   }

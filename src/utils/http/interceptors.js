@@ -8,6 +8,7 @@
  **********************************/
 
 import { useAuthStore } from '@/store'
+import CryptoJS from 'crypto-js'
 import { resolveResError } from './helpers'
 
 export function setupInterceptors(axiosInstance) {
@@ -25,6 +26,11 @@ export function setupInterceptors(axiosInstance) {
       // 根据code处理对应的操作，并返回处理后的message
       const message = resolveResError(code, data?.message ?? statusText, needTip)
 
+      if (code === 900005) {
+        const authStore = useAuthStore()
+        authStore.logout()
+      }
+
       return Promise.reject({ code, message, error: data ?? response })
     }
     return Promise.resolve(data ?? response)
@@ -36,16 +42,28 @@ export function setupInterceptors(axiosInstance) {
 
 function reqResolve(config) {
   // 处理不需要token的请求
-  if (config.needToken === false) {
-    return config
+  if (config.needToken !== false) {
+    const { accessToken } = useAuthStore()
+    if (accessToken) {
+      config.headers.accesstoken = accessToken
+    }
   }
-
-  const { accessToken } = useAuthStore()
-  if (accessToken) {
-    // token: Bearer + xxx
-    config.headers.Authorization = `Bearer ${accessToken}`
+  // 加密请求参数
+  if (config.data === undefined) {
+    config.data = {}
   }
-
+  const secretKey = CryptoJS.enc.Utf8.parse(import.meta.env.VITE_AES_KEY) // 16字节的密钥
+  const iv = CryptoJS.enc.Utf8.parse(import.meta.env.VITE_AES_IV) // 16字节的初始化向量
+  const encrypted = CryptoJS.AES.encrypt(JSON.stringify(removeEmptyValues(config.data)), secretKey, {
+    iv,
+    mode: CryptoJS.mode.CBC,
+    padding: CryptoJS.pad.Pkcs7,
+  })
+  const en_data = encrypted.toString()
+  const timestamp = Math.floor(Date.now() / 1000)
+  const signKey = import.meta.env.VITE_SIGN_KEY
+  const sign = CryptoJS.MD5(signKey + timestamp).toString()
+  config.data = { en_data, timestamp, sign }
   return config
 }
 
@@ -66,5 +84,25 @@ async function resReject(error) {
 
   const needTip = config?.needTip !== false
   const message = resolveResError(code, data?.message ?? error.message, needTip)
+
   return Promise.reject({ code, message, error: error.response?.data || error.response })
+}
+
+// 参数过滤
+function removeEmptyValues(obj) {
+  return Object.keys(obj).reduce((acc, key) => {
+    switch (obj[key]) {
+      case null:
+      case undefined:
+      case '':
+        break
+      default:
+        if ((typeof obj[key]) == 'object' && !Object.keys(obj[key]).length) {
+          return acc
+        }
+        acc[key] = obj[key]
+        break
+    }
+    return acc
+  }, {})
 }

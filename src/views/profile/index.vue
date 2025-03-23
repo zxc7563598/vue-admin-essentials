@@ -20,14 +20,6 @@
               修改密码
             </n-button>
           </div>
-          <div class="mt-16 flex items-center">
-            <n-button type="primary" ghost @click="avatarModalRef.open()">
-              更改头像
-            </n-button>
-            <span class="ml-12 opacity-60">
-              修改头像只支持在线链接，不提供上传图片功能，如有需要可自行对接！
-            </span>
-          </div>
         </div>
       </n-space>
     </n-card>
@@ -60,10 +52,6 @@
         </n-descriptions-item>
       </n-descriptions>
     </n-card>
-
-    <MeModal ref="avatarModalRef" width="420px" title="更改头像" @ok="handleAvatarSave()">
-      <n-input v-model:value="newAvatar" />
-    </MeModal>
 
     <MeModal ref="pwdModalRef" title="修改密码" width="420px" @ok="handlePwdSave()">
       <n-form
@@ -125,18 +113,6 @@ async function handlePwdSave() {
   await pwdValidation()
   await api.changePassword(pwdForm.value)
   $message.success('密码修改成功')
-  refreshUserInfo()
-}
-
-const newAvatar = ref(userStore.avatar)
-const [avatarModalRef] = useModal()
-async function handleAvatarSave() {
-  if (!newAvatar.value) {
-    $message.error('请输入头像地址')
-    return false
-  }
-  await api.updateProfile({ id: userStore.userId, avatar: newAvatar.value })
-  $message.success('头像修改成功')
   refreshUserInfo()
 }
 

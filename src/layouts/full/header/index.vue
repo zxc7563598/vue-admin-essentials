@@ -19,15 +19,6 @@
 
       <Fullscreen />
 
-      <i
-        class="i-fe:github mr-16 cursor-pointer"
-        @click="handleLinkClick('https://github.com/zclzone/vue-naive-admin/tree/2.x')"
-      />
-      <i
-        class="i-me:gitee mr-16 cursor-pointer"
-        @click="handleLinkClick('https://gitee.com/isme-admin/vue-naive-admin/tree/2.x')"
-      />
-
       <ThemeSetting class="mr-16" />
 
       <UserAvatar />
@@ -38,8 +29,4 @@
 <script setup>
 import { ToggleTheme } from '@/components'
 import { BeginnerGuide, BreadCrumb, Fullscreen, MenuCollapse, UserAvatar } from '@/layouts/components'
-
-function handleLinkClick(link) {
-  window.open(link)
-}
 </script>

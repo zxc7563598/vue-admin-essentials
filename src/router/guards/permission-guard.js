@@ -49,7 +49,7 @@ export function createPermissionGuard(router) {
 
     // 判断是无权限还是404
     const { data: hasMenu } = await api.validateMenuPath(to.path)
-    return hasMenu
+    return hasMenu.has
       ? { name: '403', query: { path: to.fullPath }, state: { from: 'permission-guard' } }
       : { name: '404', query: { path: to.fullPath } }
   })

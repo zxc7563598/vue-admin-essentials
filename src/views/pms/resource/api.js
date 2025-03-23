@@ -7,13 +7,12 @@
  **********************************/
 
 import { request } from '@/utils'
-import axios from 'axios'
 
 export default {
-  getMenuTree: () => request.get('/permission/menu/tree'),
-  getButtons: ({ parentId }) => request.get(`/permission/button/${parentId}`),
-  getComponents: () => axios.get(`${import.meta.env.VITE_PUBLIC_PATH}components.json`),
-  addPermission: data => request.post('/permission', data),
-  savePermission: (id, data) => request.patch(`/permission/${id}`, data),
-  deletePermission: id => request.delete(`permission/${id}`),
+  getMenuTree: () => request.post('/permissions/menu'), // 获取菜单
+  getButtons: parentId => request.post(`/permissions/menu/buttons`, { parent_id: parentId }), // 获取菜单按钮
+  addPermission: data => request.post('/permissions/menu/create-or-update', data), // 新增菜单
+  savePermission: data => request.post(`/permissions/menu/create-or-update`, data), // 保存菜单
+  changeMenuEnable: data => request.post(`/permissions/menu/toggle`, data), // 变更按钮启用状态
+  deletePermission: id => request.post(`/permissions/menu/delete`, id), // 删除菜单
 }
