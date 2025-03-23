@@ -72,8 +72,8 @@ const route = useRoute()
 const title = import.meta.env.VITE_TITLE
 
 const loginInfo = ref({
-  username: '',
-  password: '',
+  username: 'admin',
+  password: '123456',
   captcha: '',
 })
 
