@@ -1,0 +1,300 @@
+{
+  "common": {
+    "Back": "Back",
+    "Confirm": "Confirm",
+    "Reset": "Reset",
+    "Search": "Search",
+    "Expand": "Expand",
+    "Collapse": "Collapse",
+    "View": "View",
+    "Edit": "Edit",
+    "AddNew": "Add New",
+    "Save": "Save",
+    "Delete": "Delete",
+    "AddedSuccessfully": "Added Successfully",
+    "SavedSuccessfully": "Saved Successfully",
+    "ConfirmDeletion": "Confirm deletion?",
+    "Notice": "Notice",
+    "OK": "OK",
+    "Cancel": "Cancel",
+    "DeletionSuccessful": "Deletion Successful",
+    "PaginationTotals": "Total {total} data",
+    "NoData": "No data",
+    "DataSheet": "Data sheet",
+    "RequiredField": "This is a required field",
+    "Show": "Show",
+    "Hiddel": "Hiddel",
+    "Enable": "Enable",
+    "Disable": "Disable",
+    "Yes": "Yes",
+    "No": "No",
+    "Button": "Button",
+    "None": "None",
+    "Operation": "Operation",
+    "OperationSuccessfully": "Operation Successfully",
+    "PleaseEnter": "Please Enter",
+    "PleaseSelect": "Please Select",
+    "Male": "Male",
+    "Female": "Female"
+  },
+  "layouts": {
+    "components": {
+      "tab": {
+        "reload": "reload",
+        "close": "close",
+        "closeOther": "close other",
+        "closeLeft": "close left",
+        "closeRight": "close right"
+      },
+      "BeginnerGuide": {
+        "title": "Operation Guide",
+        "previous": "Previous",
+        "next": "Next",
+        "skip": "Skip",
+        "finish": "Finish",
+        "toggleThemeTitle": "Switch System Theme",
+        "toggleThemeContent": "Enable Eye Protection Mode with One Click",
+        "fullscreenTitle": "Full Screen/Exit Full Screen",
+        "fullscreenContent": "Enable Full Screen with One Click",
+        "langSwitcherTitle": "Switch Language",
+        "langSwitcherContent": "Multi-language Switch",
+        "themeSettingTitle": "Set Theme Color",
+        "themeSettingContent": "Adjust to Your Preferred Theme Color",
+        "userDropdownTitle": "Personal Center",
+        "userDropdownContent": "View Profile and Log Out",
+        "menuCollapseTitle": "Expand/Collapse Menu",
+        "menuCollapseContent": "Expand/Collapse Menu with One Click",
+        "topTabTitle": "Tab Bar",
+        "topTabContent": "Scroll with Mouse Wheel to Adjust to the Best View",
+        "layoutSettingTitle": "Adjust System Layout",
+        "layoutSettingContent": "Adjust the System Layout to Your Preference"
+      },
+      "RoleSelect": {
+        "tips": "Please Select a Role",
+        "logOut": "Log Out",
+        "switchedSuccessfully": "Switched Successfully",
+        "loggedOutSuccessfully": "Logged Out Successfully"
+      },
+      "SideMenu": {
+        "title": "Please Choose How to Open",
+        "positiveText": "Open in External Link",
+        "negativeText": "Open Embedded in Site"
+      },
+      "UserAvatar": {
+        "profile": "Profile",
+        "switchRole": "Switch Role",
+        "logOut": "Log Out",
+        "notice": "Notice",
+        "confirmLogOut": "Confirm Log Out?",
+        "loggedOutSuccessfully": "Logged Out Successfully"
+      }
+    }
+  },
+  "components": {
+    "common": {
+      "LayoutSetting": {
+        "title": "Layout settings",
+        "followSystem": "follow system",
+        "simple": "simple",
+        "normal": "normal",
+        "full": "full",
+        "empty": "empty",
+        "note": "Note: This setting is only valid for pages that have no layout set or are set to follow the system, and the layout set by the menu has the highest priority."
+      },
+      "ThemeSetting": {
+        "title": "Setting the theme color"
+      }
+    }
+  },
+  "helpers": {
+    "notice": "Notice",
+    "loggedTitle": "Login Expired, Would You Like to Log In Again?",
+    "loggedContent": "Logged Out Successfully",
+    "403": "Request Denied",
+    "404": "Requested Resource or Interface Does Not Exist",
+    "500": "Server Exception Occurred",
+    "unknown": "[{code}]:Unknown Exception"
+  },
+  "months": {
+    "Jan": "Jan.",
+    "Feb": "Feb.",
+    "Mar": "Mar.",
+    "Apr": "Apr.",
+    "May": "May",
+    "Jun": "Jun.",
+    "Jul": "Jul.",
+    "Aug": "Aug.",
+    "Sep": "Sep.",
+    "Oct": "Oct.",
+    "Nov": "Nov.",
+    "Dec": "Dec."
+  },
+  "page": {
+    "login": {
+      "userPalceholder": "Please Enter Your Username",
+      "passwordPalceholder": "Please Enter Your Password",
+      "captchaPalceholder": "Please Enter the Verification Code",
+      "submit": "Log In",
+      "remember": "Remember Me",
+      "submitWarning": "Please Enter Your Username and Password",
+      "verifying": "Verifying, Please Wait...",
+      "loading": "Logging In...",
+      "loginSuccess": "Logged In Successfully"
+    },
+    "home": {
+      "user": {
+        "greeting": "Hello, {name}",
+        "currentRole": "Current role: {role}",
+        "inspiration": "A person can almost succeed in anything he has unlimited enthusiasm for.",
+        "quoteAuthor": "Charles Schwab"
+      },
+      "welcome": {
+        "title": "✨ Welcome to Vue Naive Admin 2.0",
+        "websiteInDevelopment": "The website is under rapid development...",
+        "description": "This is a minimalist style backend management template that includes both frontend and backend solutions. The frontend uses Vite + Vue3 + Pinia + Unocss, and the backend uses Nestjs + TypeOrm + MySql. It's simple, easy to use, visually appealing, and has gone through numerous refactors and refinements, full of sincerity!!",
+        "developmentDocs": "Development Docs",
+        "codeRepository": "Code Repository"
+      },
+      "features": {
+        "title": "💯 Features",
+        "headerExtra": "👏 After dozens of refactors and detail polish",
+        "usingVue3": "Using",
+        "vue3TechStack": "Vue3",
+        "usingVite": "Mainstream tech stack: Vite + Vue3 + Pinia",
+        "usingAtomicCSS": "Using",
+        "atomicCSSFramework": "Atomic CSS",
+        "lightweightAndElegant": "Framework: Unocss, elegant, lightweight, easy to use",
+        "iconifyUnocss": "Using mainstream",
+        "customIconsSupport": "Icon scheme, supporting custom icons and dynamic rendering",
+        "usingNaiveUI": "Using Naive UI",
+        "naiveUIFeatures": "Minimalistic code style and refreshing page design",
+        "themeCustomization": "Aesthetic online, theme easily customizable",
+        "advancedFileStructure": "Advanced and easy-to-understand file structure design, with zero coupling between modules",
+        "zeroCoupling": "Zero coupling",
+        "deleteModulesNoImpact": "Deleting a single business module does not affect other modules",
+        "flatRouteDesign": "Flat route design",
+        "componentsAsPages": "Each component can be a page, solving the issue of multi-level routes with KeepAlive difficulty",
+        "dynamicPermissionRoutes": "Dynamically generate routes based on permissions",
+        "noExtraRouting": "No extra route definition needed",
+        "distinguish403And404": "403 and 404 can be distinguished",
+        "redisIntegration": "Redis integration",
+        "smoothLogin": "Seamless refresh",
+        "securityAndExperience": "User login state is controllable, security and experience are equally important",
+        "naiveUIMessage": "Naive UI encapsulation of message",
+        "globalToolMethod": "Global tool methods, supporting batch reminders and cross-page shared instances",
+        "naiveUIComponents": "Naive UI encapsulation of common business components, including",
+        "pageComponent": "Page component",
+        "crudComponent": "CRUD table component",
+        "modalComponent": "Modal component, reducing a lot of repetitive work",
+        "click": "click",
+        "moreLink": "More",
+        "viewMore": "See more useful features in continuous development..."
+      },
+      "techStack": {
+        "title": "🛠️ Tech Stack"
+      },
+      "tendencies": {
+        "title": "⚡️ tendencies"
+      }
+    },
+    "403": {
+      "title": "403 Forbidden",
+      "tips": "Sorry, You Do Not Have Permission to Access. Please Contact the Administrator to Grant Access.",
+      "goBack": "Go Back to Previous Page",
+      "goHome": "Return to Home Page"
+    },
+    "404": {
+      "title": "404 Page Not Found",
+      "tips": "Life Always Has a Touch of Absurdity",
+      "goHome": "Return to Home Page"
+    },
+    "pms": {
+      "resource": {
+        "menuTreeTitle": "Menu",
+        "addMenu": "Add New Menu",
+        "editMenu": "Edit Menu - {name}",
+        "addLowerMenu": "Add Submenu",
+        "deleteTitle": "Confirm Deletion of 【{name}】?",
+        "deleteLoading": "Deleting...",
+        "deleteSuccess": "Deletion Successful",
+        "belonging": "Parent Menu",
+        "rootMenu": "Root Menu",
+        "name": "Name",
+        "title": "Title",
+        "code": "Code",
+        "codeContent": "If it is a menu, it corresponds to the front-end route's name, using PascalCase",
+        "limitation": "Must start with /, http, or https",
+        "path": "Path",
+        "pathContent": "Parent Menu is optional",
+        "icon": "Menu Icon",
+        "iconContent": "e.g., material-symbols:help, icon library URL: https://icones.js.org/collection/all",
+        "layoutsContent": "Corresponds to the directory name under layouts, defaults to 'default' if empty",
+        "component": "Component",
+        "componentContent": "Front-end component path, starting with /src, optional for parent menus",
+        "show": "Show",
+        "showContent": "Controls whether to display in the menu bar, does not affect route registration",
+        "enable": "Status",
+        "enableContent": "If it is a menu, disabling it will remove it from the route table, making the page inaccessible",
+        "keepAliveContent": "To set keepAlive, the component's name must match the current menu's code",
+        "order": "Sort Order",
+        "isShow": "Visible",
+        "isEnable": "Enabled",
+        "noCurrentMenu": "Please select a menu to view details",
+        "addButton": "Add Button",
+        "editButton": "Edit Button - {name}"
+      },
+      "role": {
+        "role": "Role",
+        "title": "Add New Role",
+        "roleName": "Role Name",
+        "roleNamePlaceholder": "Please Enter Role Name",
+        "status": "Status",
+        "roleCode": "Role Code",
+        "roleCodePlaceholder": "Please Enter Role Code",
+        "permission": "Permissions",
+        "roleUser": "Assign Users"
+      },
+      "user": {
+        "user": "User",
+        "title": "Create New User",
+        "userName": "Username",
+        "userNamePlaceholder": "Please Enter Username",
+        "gender": "Gender",
+        "status": "Status",
+        "resetPassword": "Reset Password",
+        "initPassword": "Initial Password",
+        "passwordPlaceholder": "Please Enter Password",
+        "role": "Role",
+        "warning": "Details to be completed and modified by the user",
+        "avatar": "Avatar",
+        "noRole": "No Role Assigned",
+        "email": "Email",
+        "createDate": "Creation Time",
+        "setRole": "Assign Role",
+        "setRoleSuccess": "Assignment Successful",
+        "resetPasswordSuccess": "Password Reset Successful"
+      }
+    },
+    "profile": {
+      "username": "Username",
+      "changePassword": "Change Password",
+      "profileInformation": "Profile Information",
+      "editProfile": "Edit Profile",
+      "nickname": "Nickname",
+      "nicknamePlaceholder": "Please Enter Your Nickname",
+      "gender": "Gender",
+      "unknown": "Unknown",
+      "address": "Address",
+      "addressPlaceholder": "Please Enter Your Address",
+      "email": "Email",
+      "emailPlaceholder": "Please Enter Your Email",
+      "currentPassword": "Current Password",
+      "currentPasswordPlaceholder": "Please Enter Your Current Password",
+      "newPassword": "New Password",
+      "newPasswordPlaceholder": "Please Enter Your New Password",
+      "changePasswordSuccess": "Password Changed Successfully",
+      "private": "Private",
+      "updateSuccess": "Profile Updated Successfully"
+    }
+  }
+}

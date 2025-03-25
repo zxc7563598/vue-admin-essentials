@@ -11,7 +11,7 @@
     <template #action>
       <NButton v-permission="'AddRole'" type="primary" @click="handleAdd()">
         <i class="i-material-symbols:add mr-4 text-18" />
-        新增角色
+        {{ $t('page.pms.role.title') }}
       </NButton>
     </template>
 
@@ -22,16 +22,17 @@
       :columns="columns"
       :get-data="api.read"
     >
-      <MeQueryItem label="角色名" :label-width="50">
-        <n-input v-model:value="queryItems.name" type="text" placeholder="请输入角色名" clearable />
+      <MeQueryItem :label="$t('page.pms.role.roleName')" :label-width="50">
+        <n-input v-model:value="queryItems.name" type="text" :placeholder="$t('page.pms.role.roleNamePlaceholder')" clearable />
       </MeQueryItem>
-      <MeQueryItem label="状态" :label-width="50">
+      <MeQueryItem :label="$t('page.pms.role.status')" :label-width="50">
         <n-select
           v-model:value="queryItems.enable"
           clearable
+          :placeholder="$t('common.PleaseSelect')"
           :options="[
-            { label: '启用', value: 1 },
-            { label: '停用', value: 0 },
+            { label: $t('common.Enable'), value: 1 },
+            { label: $t('common.Disable'), value: 0 },
           ]"
         />
       </MeQueryItem>
@@ -45,28 +46,28 @@
         :model="modalForm"
       >
         <n-form-item
-          label="角色名"
+          :label="$t('page.pms.role.roleName')"
           path="name"
           :rule="{
             required: true,
-            message: '请输入角色名',
+            message: $t('page.pms.role.roleNamePlaceholder'),
             trigger: ['input', 'blur'],
           }"
         >
-          <n-input v-model:value="modalForm.name" />
+          <n-input v-model:value="modalForm.name" :placeholder="$t('common.PleaseEnter')" />
         </n-form-item>
         <n-form-item
-          label="角色编码"
+          :label="$t('page.pms.role.roleCode')"
           path="code"
           :rule="{
             required: true,
-            message: '请输入角色编码',
+            message: $t('page.pms.role.roleCodePlaceholder'),
             trigger: ['input', 'blur'],
           }"
         >
-          <n-input v-model:value="modalForm.code" :disabled="modalAction !== 'add'" />
+          <n-input v-model:value="modalForm.code" :disabled="modalAction !== 'add'" :placeholder="$t('common.PleaseEnter')" />
         </n-form-item>
-        <n-form-item label="权限" path="permissionIds">
+        <n-form-item :label="$t('page.pms.role.permission')" path="permissionIds">
           <n-tree
             key-field="id"
             label-field="name"
@@ -74,18 +75,17 @@
             :data="permissionTree"
             :checked-keys="modalForm.permissionIds"
             :on-update:checked-keys="(keys) => (modalForm.permissionIds = keys)"
-
             default-expand-all checkable check-on-click
             class="cus-scroll max-h-200 w-full"
           />
         </n-form-item>
-        <n-form-item label="状态" path="enable">
+        <n-form-item :label="$t('page.pms.role.status')" path="enable">
           <NSwitch v-model:value="modalForm.enable">
             <template #checked>
-              启用
+              {{ $t('common.Enable') }}
             </template>
             <template #unchecked>
-              停用
+              {{ $t('common.Disable') }}
             </template>
           </NSwitch>
         </n-form-item>
@@ -98,9 +98,14 @@
 import { MeCrud, MeModal, MeQueryItem } from '@/components'
 import { useCrud } from '@/composables'
 import { NButton, NSwitch } from 'naive-ui'
+import { inject } from 'vue'
 import api from './api'
 
+// 注入 t 函数
+
 defineOptions({ name: 'RoleMgt' })
+
+const t = inject('t')
 
 const router = useRouter()
 
@@ -114,7 +119,7 @@ onMounted(() => {
 
 const { modalRef, modalFormRef, modalAction, modalForm, handleAdd, handleDelete, handleEdit }
   = useCrud({
-    name: '角色',
+    name: t('page.pms.role.role'),
     doCreate: api.create,
     doDelete: api.delete,
     doUpdate: api.update,
@@ -123,10 +128,10 @@ const { modalRef, modalFormRef, modalAction, modalForm, handleAdd, handleDelete,
   })
 
 const columns = [
-  { title: '角色名', key: 'name' },
-  { title: '角色编码', key: 'code' },
+  { title: t('page.pms.role.roleName'), key: 'name' },
+  { title: t('page.pms.role.roleCode'), key: 'code' },
   {
-    title: '状态',
+    title: t('page.pms.role.status'),
     key: 'enable',
     render: row =>
       h(
@@ -140,13 +145,13 @@ const columns = [
           onUpdateValue: () => handleEnable(row),
         },
         {
-          checked: () => '启用',
-          unchecked: () => '停用',
+          checked: () => t('common.Enable'),
+          unchecked: () => t('common.Disable'),
         },
       ),
   },
   {
-    title: '操作',
+    title: t('common.Operation'),
     key: 'actions',
     width: 320,
     align: 'right',
@@ -163,7 +168,7 @@ const columns = [
               router.push({ path: `/pms/role/user/${row.id}`, query: { roleName: row.name } }),
           },
           {
-            default: () => '分配用户',
+            default: () => t('page.pms.role.roleUser'),
             icon: () => h('i', { class: 'i-fe:user-plus text-14' }),
           },
         ),
@@ -177,7 +182,7 @@ const columns = [
             onClick: () => handleEdit(row),
           },
           {
-            default: () => '编辑',
+            default: () => t('common.Edit'),
             icon: () => h('i', { class: 'i-material-symbols:edit-outline text-14' }),
           },
         ),
@@ -192,7 +197,7 @@ const columns = [
             onClick: () => handleDelete(row.id),
           },
           {
-            default: () => '删除',
+            default: () => t('common.Delete'),
             icon: () => h('i', { class: 'i-material-symbols:delete-outline text-14' }),
           },
         ),
@@ -206,7 +211,7 @@ async function handleEnable(row) {
   try {
     await api.update({ id: row.id, enable: !row.enable })
     row.enableLoading = false
-    $message.success('操作成功')
+    $message.success(t('common.OperationSuccessfully'))
     $table.value?.handleSearch()
   }
   catch (error) {

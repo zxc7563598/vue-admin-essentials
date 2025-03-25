@@ -7,18 +7,14 @@
  **********************************/
 
 import { cloneDeep } from 'lodash-es'
+import { inject } from 'vue'
 import { useForm, useModal } from '.'
-
-const ACTIONS = {
-  view: '查看',
-  edit: '编辑',
-  add: '新增',
-}
 
 export function useCrud({ name, initForm = {}, doCreate, doDelete, doUpdate, refresh }) {
   const modalAction = ref('')
   const [modalRef, okLoading] = useModal()
   const [modalFormRef, modalForm, validation] = useForm(initForm)
+  const t = inject('t') // 注入 t 函数
 
   /** 新增 */
   function handleAdd(row = {}, title) {
@@ -37,6 +33,11 @@ export function useCrud({ name, initForm = {}, doCreate, doDelete, doUpdate, ref
 
   /** 打开modal */
   function handleOpen(options = {}) {
+    const ACTIONS = {
+      view: t('common.View'),
+      edit: t('common.Edit'),
+      add: t('common.AddNew'),
+    }
     const { action, row, title, onOk } = options
     modalAction.value = action
     modalForm.value = { ...row }
@@ -63,11 +64,11 @@ export function useCrud({ name, initForm = {}, doCreate, doDelete, doUpdate, ref
     const actions = {
       add: {
         api: () => doCreate(modalForm.value),
-        cb: () => $message.success('新增成功'),
+        cb: () => $message.success(t('common.AddedSuccessfully')),
       },
       edit: {
         api: () => doUpdate(modalForm.value),
-        cb: () => $message.success('保存成功'),
+        cb: () => $message.success(t('common.SavedSuccessfully')),
       },
     }
 
@@ -92,15 +93,15 @@ export function useCrud({ name, initForm = {}, doCreate, doDelete, doUpdate, ref
     if (!id && id !== 0)
       return
     const d = $dialog.warning({
-      content: '确定删除？',
-      title: '提示',
-      positiveText: '确定',
-      negativeText: '取消',
+      content: t('common.ConfirmDeletion'),
+      title: t('common.Notice'),
+      positiveText: t('common.OK'),
+      negativeText: t('common.Cancel'),
       async onPositiveClick() {
         try {
           d.loading = true
           const data = await doDelete({ id })
-          $message.success('删除成功')
+          $message.success(t('common.DeletionSuccessful'))
           d.loading = false
           refresh(data, true)
         }
@@ -112,7 +113,6 @@ export function useCrud({ name, initForm = {}, doCreate, doDelete, doUpdate, ref
       ...confirmOptions,
     })
   }
-
   return {
     modalRef,
     modalFormRef,

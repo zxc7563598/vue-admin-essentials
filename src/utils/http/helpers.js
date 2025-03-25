@@ -8,40 +8,23 @@
  **********************************/
 
 import { useAuthStore } from '@/store'
+import { inject } from 'vue'
 
 let isConfirming = false
 export function resolveResError(code, message, needTip = true) {
+  const t = inject('t') // 注入 t 函数
   switch (code) {
-    case 401:
+    case 900005:
       if (isConfirming || !needTip)
         return
       isConfirming = true
       $dialog.confirm({
-        title: '提示',
+        title: t('helpers.notice'),
         type: 'info',
-        content: '登录已过期，是否重新登录？',
+        content: t('helpers.loggedTitle'),
         confirm() {
           useAuthStore().logout()
-          window.$message?.success('已退出登录')
-          isConfirming = false
-        },
-        cancel() {
-          isConfirming = false
-        },
-      })
-      return false
-    case 11007:
-    case 11008:
-      if (isConfirming || !needTip)
-        return
-      isConfirming = true
-      $dialog.confirm({
-        title: '提示',
-        type: 'info',
-        content: `${message}，是否重新登录？`,
-        confirm() {
-          useAuthStore().logout()
-          window.$message?.success('已退出登录')
+          window.$message?.success(t('helpers.loggedContent'))
           isConfirming = false
         },
         cancel() {
@@ -50,16 +33,16 @@ export function resolveResError(code, message, needTip = true) {
       })
       return false
     case 403:
-      message = '请求被拒绝'
+      message = t('helpers.403')
       break
     case 404:
-      message = '请求资源或接口不存在'
+      message = t('helpers.404')
       break
     case 500:
-      message = '服务器发生异常'
+      message = t('helpers.500')
       break
     default:
-      message = message ?? `【${code}】: 未知异常!`
+      message = message ?? t('helpers.unknown', { code })
       break
   }
   needTip && window.$message?.error(message)

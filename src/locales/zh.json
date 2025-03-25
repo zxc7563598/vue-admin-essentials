@@ -1,0 +1,300 @@
+{
+  "common": {
+    "Back": "返回",
+    "Confirm": "确认",
+    "Reset": "重置",
+    "Search": "搜索",
+    "Expand": "展开",
+    "Collapse": "收起",
+    "View": "查看",
+    "Edit": "编辑",
+    "AddNew": "新增",
+    "Save": "保存",
+    "Delete": "删除",
+    "AddedSuccessfully": "新增成功",
+    "SavedSuccessfully": "保存成功",
+    "ConfirmDeletion": "确定删除？",
+    "Notice": "提示",
+    "OK": "确定",
+    "Cancel": "取消",
+    "DeletionSuccessful": "删除成功",
+    "PaginationTotals": "共 {total} 条数据",
+    "NoData": "没有数据",
+    "DataSheet": "数据报表",
+    "RequiredField": "此为必填项",
+    "Show": "显示",
+    "Hiddel": "隐藏",
+    "Enable": "启用",
+    "Disable": "禁用",
+    "Yes": "是",
+    "No": "否",
+    "Button": "按钮",
+    "None": "无",
+    "Operation": "操作",
+    "OperationSuccessfully": "操作成功",
+    "PleaseEnter": "请输入",
+    "PleaseSelect": "请选择",
+    "Male": "男",
+    "Female": "女"
+  },
+  "layouts": {
+    "components": {
+      "tab": {
+        "reload": "重新加载",
+        "close": "关闭",
+        "closeOther": "关闭其他",
+        "closeLeft": "关闭左侧",
+        "closeRight": "关闭右侧"
+      },
+      "BeginnerGuide": {
+        "title": "操作指引",
+        "previous": "上一步",
+        "next": "下一步",
+        "skip": "跳过",
+        "finish": "完成",
+        "toggleThemeTitle": "切换系统主题",
+        "toggleThemeContent": "一键开启护眼模式",
+        "fullscreenTitle": "全屏/退出全屏",
+        "fullscreenContent": "一键开启全屏",
+        "langSwitcherTitle": "切换语言",
+        "langSwitcherContent": "多语言切换",
+        "themeSettingTitle": "设置主题色",
+        "themeSettingContent": "调整为你喜欢的主题色",
+        "userDropdownTitle": "个人中心",
+        "userDropdownContent": "查看个人资料和退出系统",
+        "menuCollapseTitle": "展开/收起菜单",
+        "menuCollapseContent": "一键展开/收起菜单",
+        "topTabTitle": "标签栏",
+        "topTabContent": "鼠标滚轮滑动可调整至最佳视野",
+        "layoutSettingTitle": "调整系统布局",
+        "layoutSettingContent": "将系统布局调整为你喜欢的样子"
+      },
+      "RoleSelect": {
+        "tips": "请选择角色",
+        "logOut": "退出登录",
+        "switchedSuccessfully": "切换成功",
+        "loggedOutSuccessfully": "已退出登录"
+      },
+      "SideMenu": {
+        "title": "请选择打开方式",
+        "positiveText": "外链打开",
+        "negativeText": "在本站内嵌打开"
+      },
+      "UserAvatar": {
+        "profile": "个人资料",
+        "switchRole": "切换角色",
+        "logOut": "退出登录",
+        "notice": "提示",
+        "confirmLogOut": "确认退出？",
+        "loggedOutSuccessfully": "已退出登录"
+      }
+    }
+  },
+  "helpers": {
+    "notice": "提示",
+    "loggedTitle": "登录已过期，是否重新登录？",
+    "loggedContent": "已退出登录",
+    "403": "请求被拒绝",
+    "404": "请求资源或接口不存在",
+    "500": "服务器发生异常",
+    "unknown": "[{code}]:未知异常"
+  },
+  "components": {
+    "common": {
+      "LayoutSetting": {
+        "title": "布局设置",
+        "followSystem": "跟随系统",
+        "simple": "简约",
+        "normal": "通用",
+        "full": "全面",
+        "empty": "空白",
+        "note": "注: 此设置仅对未设置layout或者设置成跟随系统的页面有效，菜单设置的layout优先级最高"
+      },
+      "ThemeSetting": {
+        "title": "设置主题色"
+      }
+    }
+  },
+  "months": {
+    "Jan": "1月",
+    "Feb": "2月",
+    "Mar": "3月",
+    "Apr": "4月",
+    "May": "5月",
+    "Jun": "6月",
+    "Jul": "7月",
+    "Aug": "8月",
+    "Sep": "9月",
+    "Oct": "10月",
+    "Nov": "11月",
+    "Dec": "12月"
+  },
+  "page": {
+    "login": {
+      "userPalceholder": "请输入用户名",
+      "passwordPalceholder": "请输入密码",
+      "captchaPalceholder": "请输入验证码",
+      "submit": "登录",
+      "remember": "记住我",
+      "submitWarning": "请输入用户名和密码",
+      "verifying": "正在验证，请稍后...",
+      "loading": "登录中...",
+      "loginSuccess": "登录成功"
+    },
+    "home": {
+      "user": {
+        "greeting": "你好, {name}",
+        "currentRole": "当前角色：{role}",
+        "inspiration": "一个人几乎可以在任何他怀有无限热忱的事情上成功。",
+        "quoteAuthor": "查尔斯·史考伯"
+      },
+      "welcome": {
+        "title": "✨ 欢迎使用 Vue Naive Admin 2.0",
+        "websiteInDevelopment": "官网正在火速开发中...",
+        "description": "这是一款极简风格的后台管理模板，包含前后端解决方案，前端使用 Vite + Vue3 + Pinia + Unocss，后端使用 Nestjs + TypeOrm + MySql，简单易用，赏心悦目，历经十几次重构和细节打磨，诚意满满！！",
+        "developmentDocs": "开发文档",
+        "codeRepository": "代码仓库"
+      },
+      "features": {
+        "title": "💯 特性",
+        "headerExtra": "👏 历经十几次重构和细节打磨",
+        "usingVue3": "使用",
+        "vue3TechStack": "Vue3",
+        "usingVite": "主流技术栈: Vite + Vue3 + Pinia",
+        "usingAtomicCSS": "使用",
+        "atomicCSSFramework": "原子CSS",
+        "lightweightAndElegant": "框架: Unocss，优雅、轻量、易用",
+        "iconifyUnocss": "使用主流的",
+        "customIconsSupport": "图标方案，支持自定义图标，支持动态渲染",
+        "usingNaiveUI": "使用 Naive UI",
+        "naiveUIFeatures": "极致简洁的代码风格和清爽的页面设计",
+        "themeCustomization": "审美在线，主题轻松定制",
+        "advancedFileStructure": "先进且易于理解的文件结构设计，多个模块之间",
+        "zeroCoupling": "零耦合",
+        "deleteModulesNoImpact": "单个业务模块删除不影响其他模块",
+        "flatRouteDesign": "扁平化路由设计",
+        "componentsAsPages": "每一个组件都可以是一个页面，告别多级路由 KeepAlive 难实现问题",
+        "dynamicPermissionRoutes": "基于权限动态生成路由",
+        "noExtraRouting": "无需额外定义路由",
+        "distinguish403And404": "403和404可区分",
+        "redisIntegration": "基于Redis集成",
+        "smoothLogin": "无感刷新",
+        "securityAndExperience": "用户登录态可控，安全与体验缺一不可",
+        "naiveUIMessage": "基于 Naive UI 封装",
+        "globalToolMethod": "message 全局工具方法，支持批量提醒，支持跨页面共享实例",
+        "naiveUIComponents": "基于 Naive UI 封装常用的业务组件，包含",
+        "pageComponent": "Page组件",
+        "crudComponent": "CRUD表格组件",
+        "modalComponent": "Modal组件，减少大量重复性工作",
+        "click": "点击",
+        "moreLink": "更多",
+        "viewMore": "查看更多实用功能，持续开发中..."
+      },
+      "techStack": {
+        "title": "🛠️ 技术栈"
+      },
+      "tendencies": {
+        "title": "⚡️ 趋势"
+      }
+    },
+    "403": {
+      "title": "403 禁止访问",
+      "tips": "抱歉，您暂无权限访问，请联系管理员开通权限。",
+      "goBack": "返回上一页",
+      "goHome": "返回首页"
+    },
+    "404": {
+      "title": "404 您访问的页面不存在",
+      "tips": "生活总归带点荒谬",
+      "goHome": "返回首页"
+    },
+    "pms": {
+      "resource": {
+        "menuTreeTitle": "菜单",
+        "addMenu": "新增菜单",
+        "editMenu": "编辑菜单 - {name}",
+        "addLowerMenu": "新增下级菜单",
+        "deleteTitle": "确认删除【{name}】？",
+        "deleteLoading": "正在删除...",
+        "deleteSuccess": "删除成功",
+        "belonging": "所属菜单",
+        "rootMenu": "根菜单",
+        "name": "名称",
+        "title": "标题",
+        "code": "编码",
+        "codeContent": "如果是菜单则对应前端路由的name,使用大驼峰",
+        "limitation": "必须是/、http、https开头",
+        "path": "路由地址",
+        "pathContent": "父级菜单可不填",
+        "icon": "菜单图标",
+        "iconContent": "如material-symbols:help，图标库地址: https://icones.js.org/collection/all",
+        "layoutsContent": "对应layouts文件夹下的目录名, 为空则默认为 default",
+        "component": "组件路径",
+        "componentContent": "前端组件的路径，以 /src 开头，父级菜单可不填",
+        "show": "显示状态",
+        "showContent": "控制是否在菜单栏显示，不影响路由注册",
+        "enable": "状态",
+        "enableContent": "如果是菜单，禁用后将不添加到路由表，无法进入此页面",
+        "keepAliveContent": "设置keepAlive需将组件的name设置成当前菜单的code",
+        "order": "排序",
+        "isShow": "是否显示",
+        "isEnable": "是否启用",
+        "noCurrentMenu": "请选择菜单查看详情",
+        "addButton": "新增按钮",
+        "editButton": "编辑按钮 - {name}"
+      },
+      "role": {
+        "role": "角色",
+        "title": "新增角色",
+        "roleName": "角色名",
+        "roleNamePlaceholder": "请输入角色名",
+        "status": "状态",
+        "roleCode": "角色编码",
+        "roleCodePlaceholder": "请输入角色编码",
+        "permission": "权限",
+        "roleUser": "分配用户"
+      },
+      "user": {
+        "user": "用户",
+        "title": "创建新用户",
+        "userName": "用户名",
+        "userNamePlaceholder": "请输入用户名",
+        "gender": "性别",
+        "status": "状态",
+        "resetPassword": "重置密码",
+        "initPassword": "初始密码",
+        "passwordPlaceholder": "请输入密码",
+        "role": "角色",
+        "warning": "详细信息需由用户本人补充修改",
+        "avatar": "头像",
+        "noRole": "暂无角色",
+        "email": "邮箱",
+        "createDate": "创建时间",
+        "setRole": "分配角色",
+        "setRoleSuccess": "分配成功",
+        "resetPasswordSuccess": "密码重置成功"
+      }
+    },
+    "profile": {
+      "username": "用户名",
+      "changePassword": "修改密码",
+      "profileInformation": "个人资料信息",
+      "editProfile": "修改资料",
+      "nickname": "昵称",
+      "nicknamePlaceholder": "请输入昵称",
+      "gender": "性别",
+      "unknown": "未知",
+      "address": "地址",
+      "addressPlaceholder": "请输入地址",
+      "email": "邮箱",
+      "emailPlaceholder": "请输入邮箱",
+      "currentPassword": "原密码",
+      "currentPasswordPlaceholder": "请输入原密码",
+      "newPassword": "新密码",
+      "newPasswordPlaceholder": "请输入新密码",
+      "changePasswordSuccess": "密码修改成功",
+      "private": "保密",
+      "updateSuccess": "资料修改成功"
+    }
+  }
+}

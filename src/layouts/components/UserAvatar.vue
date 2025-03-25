@@ -24,6 +24,9 @@
 import api from '@/api'
 import { RoleSelect } from '@/layouts/components'
 import { useAuthStore, usePermissionStore, useUserStore } from '@/store'
+import { inject } from 'vue'
+
+const t = inject('t') // 注入 t 函数
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -32,19 +35,19 @@ const permissionStore = usePermissionStore()
 
 const options = reactive([
   {
-    label: '个人资料',
+    label: t('layouts.components.UserAvatar.profile'),
     key: 'profile',
     icon: () => h('i', { class: 'i-material-symbols:person-outline text-14' }),
     show: computed(() => permissionStore.accessRoutes?.some(item => item.path === '/profile')),
   },
   {
-    label: '切换角色',
+    label: t('layouts.components.UserAvatar.switchRole'),
     key: 'toggleRole',
     icon: () => h('i', { class: 'i-basil:exchange-solid text-14' }),
     show: computed(() => userStore.roles.length > 1),
   },
   {
-    label: '退出登录',
+    label: t('layouts.components.UserAvatar.logOut'),
     key: 'logout',
     icon: () => h('i', { class: 'i-mdi:exit-to-app text-14' }),
   },
@@ -65,9 +68,9 @@ function handleSelect(key) {
       break
     case 'logout':
       $dialog.confirm({
-        title: '提示',
+        title: t('layouts.components.UserAvatar.notice'),
         type: 'info',
-        content: '确认退出？',
+        content: t('layouts.components.UserAvatar.confirmLogOut'),
         async confirm() {
           try {
             await api.logout()
@@ -76,7 +79,7 @@ function handleSelect(key) {
             console.error(error)
           }
           authStore.logout()
-          $message.success('已退出登录')
+          $message.success(t('layouts.components.UserAvatar.loggedOutSuccessfully'))
         },
       })
       break

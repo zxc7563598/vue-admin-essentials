@@ -17,21 +17,21 @@
       <div class="flex-shrink-0 p-10">
         <n-button ghost type="primary" @click="handleReset">
           <i class="i-fe:rotate-ccw mr-4" />
-          重置
+          {{ $t('common.Reset') }}
         </n-button>
         <n-button attr-type="submit" class="ml-20" type="primary">
           <i class="i-fe:search mr-4" />
-          搜索
+          {{ $t('common.Search') }}
         </n-button>
 
         <template v-if="expand">
           <n-button v-if="!isExpanded" type="primary" text @click="toggleExpand">
             <i class="i-fe:chevrons-down ml-4" />
-            展开
+            {{ $t('common.Expand') }}
           </n-button>
           <n-button v-else text type="primary" @click="toggleExpand">
             <i class="i-fe:chevrons-up ml-4" />
-            收起
+            {{ $t('common.Collapse') }}
           </n-button>
         </template>
       </div>
@@ -53,6 +53,7 @@
 
 <script setup>
 import { NDataTable } from 'naive-ui'
+import { inject } from 'vue'
 import { utils, writeFile } from 'xlsx'
 
 const props = defineProps({
@@ -107,6 +108,9 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:queryItems', 'onChecked', 'onDataChange'])
+
+const t = inject('t') // 注入 t 函数
+
 const loading = ref(false)
 const initQuery = { ...props.queryItems }
 const tableData = ref([])
@@ -114,7 +118,7 @@ const pagination = reactive({
   page: 1,
   pageSize: 10,
   prefix({ itemCount }) {
-    return `共 ${itemCount} 条数据`
+    return t('common.PaginationTotals', { total: itemCount })
   },
 })
 
@@ -186,15 +190,16 @@ function onChecked(rowKeys) {
 }
 function handleExport(columns = props.columns, data = tableData.value) {
   if (!data?.length)
-    return $message.warning('没有数据')
+    return $message.warning(t('common.NoData'))
   const columnsData = columns.filter(item => !!item.title && !item.hideInExcel)
   const thKeys = columnsData.map(item => item.key)
   const thData = columnsData.map(item => item.title)
   const trData = data.map(item => thKeys.map(key => item[key]))
   const sheet = utils.aoa_to_sheet([thData, ...trData])
   const workBook = utils.book_new()
-  utils.book_append_sheet(workBook, sheet, '数据报表')
-  writeFile(workBook, '数据报表.xlsx')
+  const dataSheet = t('common.DataSheet')
+  utils.book_append_sheet(workBook, sheet, dataSheet)
+  writeFile(workBook, dataSheet.concat('.xlsx'))
 }
 
 defineExpose({

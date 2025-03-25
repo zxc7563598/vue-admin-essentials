@@ -21,53 +21,53 @@
             </h3>
             <NButton size="small" type="primary" @click="handleEdit(currentMenu)">
               <i class="i-material-symbols:edit-outline mr-4 text-14" />
-              编辑
+              {{ $t('common.Edit') }}
             </NButton>
           </div>
           <n-descriptions label-placement="left" bordered :column="2">
-            <n-descriptions-item label="编码">
+            <n-descriptions-item :label="$t('page.pms.resource.code')">
               {{ currentMenu.code }}
             </n-descriptions-item>
-            <n-descriptions-item label="名称">
+            <n-descriptions-item :label="$t('page.pms.resource.name')">
               {{ currentMenu.name }}
             </n-descriptions-item>
-            <n-descriptions-item label="路由地址">
+            <n-descriptions-item :label="$t('page.pms.resource.path')">
               {{ currentMenu.path ?? '--' }}
             </n-descriptions-item>
-            <n-descriptions-item label="组件路径">
+            <n-descriptions-item :label="$t('page.pms.resource.component')">
               {{ currentMenu.component ?? '--' }}
             </n-descriptions-item>
-            <n-descriptions-item label="菜单图标">
+            <n-descriptions-item :label="$t('page.pms.resource.icon')">
               <span v-if="currentMenu.icon" class="flex items-center">
                 <i :class="`${currentMenu.icon}?mask text-22 mr-8`" />
                 <span class="opacity-50">{{ currentMenu.icon }}</span>
               </span>
-              <span v-else>无</span>
+              <span v-else>{{ $t('common.None') }}</span>
             </n-descriptions-item>
             <n-descriptions-item label="layout">
-              {{ currentMenu.layout || '跟随系统' }}
+              {{ currentMenu.layout || $t('components.common.LayoutSetting.followSystem') }}
             </n-descriptions-item>
-            <n-descriptions-item label="是否显示">
-              {{ currentMenu.show ? '是' : '否' }}
+            <n-descriptions-item :label="$t('page.pms.resource.isShow')">
+              {{ currentMenu.show ? $t('common.Yes') : $t('common.No') }}
             </n-descriptions-item>
-            <n-descriptions-item label="是否启用">
-              {{ currentMenu.enable ? '是' : '否' }}
+            <n-descriptions-item :label="$t('page.pms.resource.isEnable')">
+              {{ currentMenu.enable ? $t('common.Yes') : $t('common.No') }}
             </n-descriptions-item>
             <n-descriptions-item label="KeepAlive">
-              {{ currentMenu.keepAlive ? '是' : '否' }}
+              {{ currentMenu.keepAlive ? $t('common.Yes') : $t('common.No') }}
             </n-descriptions-item>
-            <n-descriptions-item label="排序">
+            <n-descriptions-item :label="$t('page.pms.resource.order')">
               {{ currentMenu.order ?? '--' }}
             </n-descriptions-item>
           </n-descriptions>
 
           <div class="mt-32 flex justify-between">
             <h3 class="mb-12">
-              按钮
+              {{ $t('common.Button') }}
             </h3>
             <NButton size="small" type="primary" @click="handleAddBtn">
               <i class="i-fe:plus mr-4 text-14" />
-              新增
+              {{ $t('common.AddNew') }}
             </NButton>
           </div>
 
@@ -76,7 +76,7 @@
             :query-items="{ parentId: currentMenu.id }"
           />
         </template>
-        <n-empty v-else class="h-450 f-c-c" size="large" description="请选择菜单查看详情" />
+        <n-empty v-else class="h-450 f-c-c" size="large" :description="$t('page.pms.resource.noCurrentMenu')" />
       </div>
     </div>
     <ResAddOrEdit ref="modalRef" :menus="treeData" @refresh="initData" />
@@ -86,9 +86,12 @@
 <script setup>
 import { MeCrud } from '@/components'
 import { NButton, NSwitch } from 'naive-ui'
+import { inject } from 'vue'
 import api from './api'
 import MenuTree from './components/MenuTree.vue'
 import ResAddOrEdit from './components/ResAddOrEdit.vue'
+
+const t = inject('t') // 注入 t 函数
 
 const treeData = ref([])
 const treeLoading = ref(false)
@@ -113,15 +116,15 @@ const modalRef = ref(null)
 function handleEdit(item = {}) {
   modalRef.value?.handleOpen({
     action: 'edit',
-    title: `编辑菜单 - ${item.name}`,
+    title: t('page.pms.resource.editMenu', { name: item.name }),
     row: item,
-    okText: '保存',
+    okText: t('common.Save'),
   })
 }
 
 const btnsColumns = [
-  { title: '名称', key: 'name' },
-  { title: '编码', key: 'code' },
+  { title: t('page.pms.resource.name'), key: 'name' },
+  { title: t('page.pms.resource.code'), key: 'code' },
   {
     title: '状态',
     key: 'enable',
@@ -136,13 +139,13 @@ const btnsColumns = [
           onUpdateValue: () => handleEnable(row),
         },
         {
-          checked: () => '启用',
-          unchecked: () => '停用',
+          checked: () => t('common.Enable'),
+          unchecked: () => t('common.Disable'),
         },
       ),
   },
   {
-    title: '操作',
+    title: t('common.Operation'),
     key: 'actions',
     width: 320,
     align: 'right',
@@ -158,7 +161,7 @@ const btnsColumns = [
             onClick: () => handleEditBtn(row),
           },
           {
-            default: () => '编辑',
+            default: () => t('common.Edit'),
             icon: () => h('i', { class: 'i-material-symbols:edit-outline text-14' }),
           },
         ),
@@ -172,7 +175,7 @@ const btnsColumns = [
             onClick: () => handleDeleteBtn(row.id),
           },
           {
-            default: () => '删除',
+            default: () => t('common.Delete'),
             icon: () => h('i', { class: 'i-material-symbols:delete-outline text-14' }),
           },
         ),
@@ -193,32 +196,32 @@ watch(
 function handleAddBtn() {
   modalRef.value?.handleOpen({
     action: 'add',
-    title: '新增按钮',
+    title: t('page.pms.resource.addButton'),
     row: { type: 'BUTTON', parentId: currentMenu.value.id },
-    okText: '保存',
+    okText: t('common.Save'),
   })
 }
 
 function handleEditBtn(row) {
   modalRef.value?.handleOpen({
     action: 'edit',
-    title: `编辑按钮 - ${row.name}`,
+    title: t('page.pms.resource.editButton', { name: row.name }),
     row,
-    okText: '保存',
+    okText: t('common.Save'),
   })
 }
 
 function handleDeleteBtn(id) {
   const d = $dialog.warning({
-    content: '确定删除？',
-    title: '提示',
-    positiveText: '确定',
-    negativeText: '取消',
+    content: t('common.ConfirmDeletion'),
+    title: t('common.Notice'),
+    positiveText: t('common.OK'),
+    negativeText: t('common.Cancel'),
     async onPositiveClick() {
       try {
         d.loading = true
         await api.deletePermission({ id })
-        $message.success('删除成功')
+        $message.success(t('common.DeletionSuccessful'))
         $table.value.handleSearch()
         d.loading = false
       }
@@ -237,7 +240,7 @@ async function handleEnable(item) {
       id: item.id,
       enable: !item.enable,
     })
-    $message.success('操作成功')
+    $message.success(t('common.OperationSuccessfully'))
     $table.value?.handleSearch()
     item.enableLoading = false
   }

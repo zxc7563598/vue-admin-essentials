@@ -7,7 +7,7 @@
  --------------------------------->
 
 <template>
-  <MeModal ref="modalRef" title="请选择角色" width="360px" class="p-12">
+  <MeModal ref="modalRef" :title="$t('layouts.components.RoleSelect.tips')" width="360px" class="p-12">
     <n-radio-group v-model:value="roleCode" class="cus-scroll-y max-h-420 w-full py-16">
       <n-space vertical :size="24" class="mx-12">
         <n-radio-button
@@ -25,7 +25,7 @@
     <template #footer>
       <div class="flex">
         <n-button class="flex-1" size="large" @click="logout()">
-          退出登录
+          {{ $t('layouts.components.RoleSelect.logOut') }}
         </n-button>
         <n-button
           :loading="okLoading"
@@ -35,7 +35,7 @@
           :disabled="userStore.currentRole?.code === roleCode"
           @click="setCurrentRole"
         >
-          确认
+          {{ $t('common.Confirm') }}
         </n-button>
       </div>
     </template>
@@ -47,6 +47,9 @@ import api from '@/api'
 import { MeModal } from '@/components'
 import { useModal } from '@/composables'
 import { useAuthStore, useUserStore } from '@/store'
+import { inject } from 'vue'
+
+const t = inject('t') // 注入 t 函数
 
 const userStore = useUserStore()
 const authStore = useAuthStore()
@@ -67,7 +70,7 @@ async function setCurrentRole() {
     const { data } = await api.switchCurrentRole(roleCode.value)
     await authStore.switchCurrentRole(data)
     okLoading.value = false
-    $message.success('切换成功')
+    $message.success(t('layouts.components.RoleSelect.switchedSuccessfully'))
     modalRef.value?.handleOk()
   }
   catch (error) {
@@ -81,7 +84,7 @@ async function logout() {
   await api.logout()
   authStore.logout()
   modalRef.value?.close()
-  $message.success('已退出登录')
+  $message.success(t('layouts.components.RoleSelect.loggedOutSuccessfully'))
 }
 
 defineExpose({

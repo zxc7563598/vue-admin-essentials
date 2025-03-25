@@ -35,12 +35,13 @@
       </MeQueryItem>
 
       <MeQueryItem label="性别" :label-width="50">
-        <n-select v-model:value="queryItems.gender" clearable :options="genders" />
+        <n-select v-model:value="queryItems.gender" clearable :options="genders" :placeholder="$t('common.PleaseSelect')" />
       </MeQueryItem>
 
       <MeQueryItem label="状态" :label-width="50">
         <n-select
-          v-model:value="queryItems.enable" clearable :options="[
+          v-model:value="queryItems.enable"
+          :placeholder="$t('common.PleaseSelect')" clearable :options="[
             { label: '启用', value: 1 },
             { label: '停用', value: 0 },
           ]"

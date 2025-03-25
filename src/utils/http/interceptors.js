@@ -8,6 +8,7 @@
  **********************************/
 
 import { useAuthStore } from '@/store'
+import { lStorage } from '@/utils'
 import CryptoJS from 'crypto-js'
 import { resolveResError } from './helpers'
 
@@ -26,11 +27,6 @@ export function setupInterceptors(axiosInstance) {
       // 根据code处理对应的操作，并返回处理后的message
       const message = resolveResError(code, data?.message ?? statusText, needTip)
 
-      if (code === 900005) {
-        const authStore = useAuthStore()
-        authStore.logout()
-      }
-
       return Promise.reject({ code, message, error: data ?? response })
     }
     return Promise.resolve(data ?? response)
@@ -45,9 +41,11 @@ function reqResolve(config) {
   if (config.needToken !== false) {
     const { accessToken } = useAuthStore()
     if (accessToken) {
-      config.headers.accesstoken = accessToken
+      config.headers['X-Auth-Token'] = accessToken
     }
   }
+  // 添加 Accept-Language 头参数
+  config.headers['Accept-Language'] = lStorage.get('locale') || 'zh'
   // 加密请求参数
   if (config.data === undefined) {
     config.data = {}

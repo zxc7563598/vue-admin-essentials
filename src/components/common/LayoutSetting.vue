@@ -14,10 +14,10 @@
           <i class="i-fe:settings cursor-pointer bg-white text-20" />
         </div>
       </template>
-      布局设置
+      {{ $t('components.common.LayoutSetting.title') }}
     </n-tooltip>
 
-    <MeModal ref="modalRef" title="布局设置" :show-footer="false" width="600px">
+    <MeModal ref="modalRef" :title="$t('components.common.LayoutSetting.title')" :show-footer="false" width="600px">
       <n-space justify="space-between">
         <div class="flex-col cursor-pointer justify-center" @click="appStore.setLayout('simple')">
           <div class="flex">
@@ -32,7 +32,7 @@
             :type="appStore.layout === 'simple' ? 'primary' : ''"
             ghost
           >
-            简约
+            {{ $t('components.common.LayoutSetting.simple') }}
           </n-button>
         </div>
         <div class="flex-col cursor-pointer justify-center" @click="appStore.setLayout('normal')">
@@ -49,7 +49,7 @@
             :type="appStore.layout === 'normal' ? 'primary' : ''"
             ghost
           >
-            通用
+            {{ $t('components.common.LayoutSetting.normal') }}
           </n-button>
         </div>
 
@@ -68,7 +68,7 @@
             :type="appStore.layout === 'full' ? 'primary' : ''"
             ghost
           >
-            全面
+            {{ $t('components.common.LayoutSetting.full') }}
           </n-button>
         </div>
         <div class="flex-col cursor-pointer justify-center" @click="appStore.setLayout('empty')">
@@ -81,12 +81,12 @@
             :type="appStore.layout === 'empty' ? 'primary' : ''"
             ghost
           >
-            空白
+            {{ $t('components.common.LayoutSetting.empty') }}
           </n-button>
         </div>
       </n-space>
       <p class="mt-16 opacity-50">
-        注: 此设置仅对未设置layout或者设置成跟随系统的页面有效，菜单设置的layout优先级最高
+        {{ $t('components.common.LayoutSetting.note') }}
       </p>
     </MeModal>
   </div>

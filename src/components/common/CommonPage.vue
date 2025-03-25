@@ -23,7 +23,7 @@
                 @click="router.back()"
               >
                 <i class="i-material-symbols:arrow-left-alt" />
-                <span class="ml-4">返回</span>
+                <span class="ml-4">{{ $t('common.Back') }}</span>
               </div>
             </template>
           </slot>

@@ -16,28 +16,28 @@
       :model="modalForm"
     >
       <n-grid :cols="24" :x-gap="24">
-        <n-form-item-gi :span="12" label="所属菜单" path="parentId">
+        <n-form-item-gi :span="12" :label="$t('page.pms.resource.belonging')" path="parentId">
           <n-tree-select
             v-model:value="modalForm.parentId"
             :options="menuOptions"
             :disabled="parentIdDisabled"
             label-field="name"
             key-field="id"
-            placeholder="根菜单"
+            :placeholder="$t('page.pms.resource.rootMenu')"
             clearable
           />
         </n-form-item-gi>
         <n-form-item-gi :span="12" path="name" :rule="required">
           <template #label>
-            <QuestionLabel label="名称" content="标题" />
+            <QuestionLabel :label="$t('page.pms.resource.name')" :content="$t('page.pms.resource.title')" />
           </template>
-          <n-input v-model:value="modalForm.name" />
+          <n-input v-model:value="modalForm.name" :placeholder="$t('common.PleaseEnter')" />
         </n-form-item-gi>
         <n-form-item-gi :span="12" path="code" :rule="required">
           <template #label>
-            <QuestionLabel label="编码" content="如果是菜单则对应前端路由的name，使用大驼峰" />
+            <QuestionLabel :label="$t('page.pms.resource.code')" :content="$t('page.pms.resource.codeContent')" />
           </template>
-          <n-input v-model:value="modalForm.code" />
+          <n-input v-model:value="modalForm.code" :placeholder="$t('common.PleaseEnter')" />
         </n-form-item-gi>
         <n-form-item-gi
           v-if="modalForm.type === 'MENU'"
@@ -46,7 +46,7 @@
           :rule="{
             trigger: ['blur', 'change'],
             type: 'string',
-            message: '必须是/、http、https开头',
+            message: $t('page.pms.resource.limitation'),
             validator(rule, value) {
               if (value) {
                 return /\/|http|https/.test(value)
@@ -56,38 +56,39 @@
           }"
         >
           <template #label>
-            <QuestionLabel label="路由地址" content="父级菜单可不填" />
+            <QuestionLabel :label="$t('page.pms.resource.path')" :content="$t('page.pms.resource.pathContent')" />
           </template>
-          <n-input v-model:value="modalForm.path" />
+          <n-input v-model:value="modalForm.path" :placeholder="$t('common.PleaseEnter')" />
         </n-form-item-gi>
         <n-form-item-gi v-if="modalForm.type === 'MENU'" :span="12" path="icon">
           <template #label>
             <QuestionLabel
-              label="菜单图标"
-              content="如material-symbols:help，图标库地址: https://icones.js.org/collection/all"
+              :label="$t('page.pms.resource.icon')"
+              :content="$t('page.pms.resource.iconContent')"
             />
           </template>
-          <n-select v-model:value="modalForm.icon" :options="iconOptions" clearable filterable />
+          <n-select v-model:value="modalForm.icon" :options="iconOptions" clearable filterable :placeholder="$t('common.PleaseSelect')" />
         </n-form-item-gi>
         <n-form-item-gi v-if="modalForm.type === 'MENU'" :span="12" path="layout">
           <template #label>
             <QuestionLabel
               label="layout"
-              content="对应layouts文件夹下的目录名, 为空则默认为 default"
+              :content="$t('page.pms.resource.layoutsContent')"
             />
           </template>
-          <n-select v-model:value="modalForm.layout" :options="layoutOptions" clearable />
+          <n-select v-model:value="modalForm.layout" :options="layoutOptions" clearable :placeholder="$t('common.PleaseSelect')" />
         </n-form-item-gi>
         <n-form-item-gi v-if="modalForm.type === 'MENU'" :span="24" path="component">
           <template #label>
             <QuestionLabel
-              label="组件路径"
-              content="前端组件的路径，以 /src 开头，父级菜单可不填"
+              :label="$t('page.pms.resource.component')"
+              :content="$t('page.pms.resource.componentContent')"
             />
           </template>
           <n-select
             v-model:value="modalForm.component"
             :options="componentOptions"
+            :placeholder="$t('common.PleaseSelect')"
             clearable
             filterable
             tag
@@ -96,30 +97,30 @@
 
         <n-form-item-gi v-if="modalForm.type === 'MENU'" :span="12" path="show">
           <template #label>
-            <QuestionLabel label="显示状态" content="控制是否在菜单栏显示，不影响路由注册" />
+            <QuestionLabel :label="$t('page.pms.resource.show')" :content="$t('page.pms.resource.showContent')" />
           </template>
           <n-switch v-model:value="modalForm.show">
             <template #checked>
-              显示
+              {{ $t('common.Show') }}
             </template>
             <template #unchecked>
-              隐藏
+              {{ $t('common.Hiddel') }}
             </template>
           </n-switch>
         </n-form-item-gi>
         <n-form-item-gi :span="12" path="enable">
           <template #label>
             <QuestionLabel
-              label="状态"
-              content="如果是菜单，禁用后将不添加到路由表，无法进入此页面"
+              :label="$t('page.pms.resource.enable')"
+              :content="$t('page.pms.resource.enableContent')"
             />
           </template>
           <n-switch v-model:value="modalForm.enable">
             <template #checked>
-              启用
+              {{ $t('common.Enable') }}
             </template>
             <template #unchecked>
-              禁用
+              {{ $t('common.Disable') }}
             </template>
           </n-switch>
         </n-form-item-gi>
@@ -127,31 +128,31 @@
           <template #label>
             <QuestionLabel
               label="KeepAlive"
-              content="设置keepAlive需将组件的name设置成当前菜单的code"
+              :content="$t('page.pms.resource.keepAliveContent')"
             />
           </template>
           <n-switch v-model:value="modalForm.keepAlive">
             <template #checked>
-              是
+              {{ $t('common.Yes') }}
             </template>
             <template #unchecked>
-              否
+              {{ $t('common.No') }}
             </template>
           </n-switch>
         </n-form-item-gi>
         <n-form-item-gi
           v-if="modalForm.type === 'MENU'"
           :span="12"
-          label="排序"
+          :label="$t('page.pms.resource.order')"
           path="order"
           :rule="{
             type: 'number',
             required: true,
-            message: '此为必填项',
+            message: $t('common.RequiredField'),
             trigger: ['blur', 'change'],
           }"
         >
-          <n-input-number v-model:value="modalForm.order" />
+          <n-input-number v-model:value="modalForm.order" :placeholder="$t('common.PleaseEnter')" />
         </n-form-item-gi>
       </n-grid>
     </n-form>
@@ -163,6 +164,7 @@ import { MeModal } from '@/components'
 import { useForm, useModal } from '@/composables'
 import icons from 'isme:icons'
 import pagePathes from 'isme:page-pathes'
+import { inject } from 'vue'
 import api from '../api'
 import QuestionLabel from './QuestionLabel.vue'
 
@@ -172,11 +174,15 @@ const props = defineProps({
     required: true,
   },
 })
+
 const emit = defineEmits(['refresh'])
 
+const t = inject('t')
+
 const menuOptions = computed(() => {
-  return [{ name: '根菜单', id: '', children: props.menus || [] }]
+  return [{ name: t('page.pms.resource.rootMenu'), id: '', children: props.menus || [] }]
 })
+
 const componentOptions = pagePathes.map(path => ({ label: path, value: path }))
 const iconOptions = icons.map(item => ({
   label: () =>
@@ -184,15 +190,15 @@ const iconOptions = icons.map(item => ({
   value: item,
 }))
 const layoutOptions = [
-  { label: '跟随系统', value: '' },
-  { label: '简约-simple', value: 'simple' },
-  { label: '通用-normal', value: 'normal' },
-  { label: '全面-full', value: 'full' },
-  { label: '空白-empty', value: 'empty' },
+  { label: t('components.common.LayoutSetting.followSystem'), value: '' },
+  { label: t('components.common.LayoutSetting.simple'), value: 'simple' },
+  { label: t('components.common.LayoutSetting.normal'), value: 'normal' },
+  { label: t('components.common.LayoutSetting.full'), value: 'full' },
+  { label: t('components.common.LayoutSetting.empty'), value: 'empty' },
 ]
 const required = {
   required: true,
-  message: '此为必填项',
+  message: t('common.RequiredField'),
   trigger: ['blur', 'change'],
 }
 
@@ -225,7 +231,7 @@ async function onSave() {
       await api.savePermission(modalForm.value)
     }
     okLoading.value = false
-    $message.success('保存成功')
+    $message.success(t('common.SavedSuccessfully'))
     emit('refresh', modalAction.value === 'add' ? newFormData : modalForm.value)
   }
   catch (error) {

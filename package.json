@@ -24,6 +24,7 @@
     "pinia-plugin-persistedstate": "^4.2.0",
     "vue": "^3.5.13",
     "vue-echarts": "^7.0.3",
+    "vue-i18n": "^11.1.2",
     "vue-router": "^4.5.0",
     "xlsx": "^0.18.5"
   },
@@ -35,7 +36,7 @@
     "@unocss/preset-rem-to-px": "^66.0.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vitejs/plugin-vue-jsx": "^4.1.1",
-    "eslint": "^9.21.0",
+    "eslint": "^9.23.0",
     "eslint-plugin-format": "^1.0.1",
     "esno": "^4.8.0",
     "fs-extra": "^11.3.0",

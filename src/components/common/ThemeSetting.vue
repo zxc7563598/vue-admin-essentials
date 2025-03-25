@@ -10,7 +10,7 @@
         :render-label="() => ''"
       />
     </template>
-    设置主题色
+    {{ $t('components.common.ThemeSetting.title') }}
   </n-tooltip>
 </template>
 

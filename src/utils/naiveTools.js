@@ -10,6 +10,7 @@
 import { useAppStore } from '@/store'
 import { isNullOrUndef } from '@/utils'
 import * as NaiveUI from 'naive-ui'
+import { inject } from 'vue'
 
 export function setupMessage(NMessage) {
   class Message {
@@ -88,11 +89,12 @@ export function setupMessage(NMessage) {
 
 export function setupDialog(NDialog) {
   NDialog.confirm = function (option = {}) {
+    const t = inject('t') // 注入 t 函数
     const showIcon = !isNullOrUndef(option.title)
     return NDialog[option.type || 'warning']({
       showIcon,
-      positiveText: '确定',
-      negativeText: '取消',
+      positiveText: t('common.OK'),
+      negativeText: t('common.Cancel'),
       onPositiveClick: option.confirm,
       onNegativeClick: option.cancel,
       onMaskClick: option.cancel,

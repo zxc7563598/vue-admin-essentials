@@ -14,144 +14,124 @@
           <n-avatar round :size="60" :src="userStore.avatar" class="flex-shrink-0" />
           <div class="ml-20 flex-col">
             <span class="text-20 opacity-80">
-              Hello, {{ userStore.nickName ?? userStore.username }}
+              {{ $t('page.home.user.greeting', { name: userStore.nickName ?? userStore.username }) }}
             </span>
-            <span class="mt-4 opacity-50">当前角色：{{ userStore.currentRole?.name }}</span>
+            <span class="mt-4 opacity-50">{{ $t('page.home.user.currentRole', { role: userStore.currentRole?.name })
+            }}</span>
           </div>
         </div>
 
         <p class="mt-28 text-14 opacity-60">
-          一个人几乎可以在任何他怀有无限热忱的事情上成功。
+          {{ $t('page.home.user.inspiration') }}
         </p>
         <p class="mt-12 text-right text-12 opacity-40">
-          —— 查尔斯·史考伯
+          —— {{ $t('page.home.user.quoteAuthor') }}
         </p>
       </n-card>
-      <n-card class="ml-12 w-70%" title="✨ 欢迎使用 Vue Naive Admin 2.0">
+      <n-card class="ml-12 w-70%" :title="$t('page.home.welcome.title')">
         <template #header-extra>
           <a
-            class="text-14 text-primary text-highlight hover:underline hover:opacity-80"
-            href="https://isme.top"
-            target="_blank"
-            @click.prevent="message?.info('官网正在火速开发中...')"
+            class="text-14 text-primary text-highlight hover:underline hover:opacity-80" href="https://isme.top"
+            target="_blank" @click.prevent="message?.info($t('page.home.welcome.websiteInDevelopment'))"
           >
             isme.top
           </a>
         </template>
 
         <p class="opacity-60">
-          这是一款极简风格的后台管理模板，包含前后端解决方案，前端使用 Vite + Vue3 + Pinia +
-          Unocss，后端使用 Nestjs + TypeOrm +
-          MySql，简单易用，赏心悦目，历经十几次重构和细节打磨，诚意满满！！
+          {{ $t('page.home.welcome.description') }}
         </p>
         <footer class="mt-12 flex items-center justify-end">
-          <n-button
-            type="primary"
-            ghost
-            tag="a"
-            href="https://isme.top"
-            target="__blank"
-          >
-            开发文档
+          <n-button type="primary" ghost tag="a" href="https://isme.top" target="__blank">
+            {{ $t('page.home.welcome.developmentDocs') }}
           </n-button>
           <n-button
-            type="primary"
-            class="ml-12"
-            tag="a"
-            href="https://github.com/zclzone/vue-naive-admin/tree/2.x"
+            type="primary" class="ml-12" tag="a" href="https://github.com/zclzone/vue-naive-admin/tree/2.x"
             target="__blank"
           >
-            代码仓库
+            {{ $t('page.home.welcome.codeRepository') }}
           </n-button>
         </footer>
       </n-card>
     </div>
+
     <div class="mt-12 flex">
-      <n-card class="w-50%" title="💯 特性" segmented>
+      <n-card class="w-50%" :title="$t('page.home.features.title')" segmented>
         <template #header-extra>
-          <span class="opacity-90 text-highlight">👏 历经十几次重构和细节打磨</span>
+          <span class="opacity-90 text-highlight">{{ $t('page.home.features.headerExtra') }}</span>
         </template>
 
         <ul class="opacity-90">
           <li class="py-4">
-            🆒 使用
-            <b>Vue3</b>
-            主流技术栈:
-            <span class="text-highlight">Vite + Vue3 + Pinia</span>
+            🆒 {{ $t('page.home.features.usingVue3') }}
+            <b>{{ $t('page.home.features.vue3TechStack') }}</b>
+            {{ $t('page.home.features.usingVite') }}
           </li>
           <li class="py-4">
-            🍇 使用
-            <b>原子CSS</b>
-            框架:
-            <span class="text-highlight">Unocss</span>
-            ，优雅、轻量、易用
+            🍇 {{ $t('page.home.features.usingAtomicCSS') }}
+            <b>{{ $t('page.home.features.atomicCSSFramework') }}</b>
+            ,{{ $t('page.home.features.lightweightAndElegant') }}
           </li>
           <li class="py-4">
-            🤹 使用主流的
-            <span class="text-highlight">iconify + unocss</span>
-            图标方案，支持自定义图标，支持动态渲染
+            🤹 {{ $t('page.home.features.iconifyUnocss') }}
+            {{ $t('page.home.features.customIconsSupport') }}
           </li>
           <li class="py-4">
-            🎨 使用 Naive UI，
-            <span class="text-highlight">极致简洁的代码风格和清爽的页面设计</span>
-            ，审美在线，主题轻松定制
+            🎨 {{ $t('page.home.features.usingNaiveUI') }},
+            <span class="text-highlight">{{ $t('page.home.features.naiveUIFeatures') }}</span>
+            ,{{ $t('page.home.features.themeCustomization') }}
           </li>
           <li class="py-4">
-            👏 先进且易于理解的文件结构设计，多个模块之间
-            <b>零耦合</b>
-            ，单个业务模块删除不影响其他模块
+            👏 {{ $t('page.home.features.advancedFileStructure') }}
+            <b>{{ $t('page.home.features.zeroCoupling') }}</b>
+            ,{{ $t('page.home.features.deleteModulesNoImpact') }}
           </li>
           <li class="py-4">
             🚀
-            <span class="text-highlight">扁平化路由</span>
-            设计，每一个组件都可以是一个页面，告别多级路由 KeepAlive 难实现问题
+            <span class="text-highlight">{{ $t('page.home.features.flatRouteDesign') }}</span>
+            {{ $t('page.home.features.componentsAsPages') }}
           </li>
 
           <li class="py-4">
             🍒
-            <span class="text-highlight">基于权限动态生成路由</span>
-            ，无需额外定义路由，
-            <span class="text-highlight">403和404可区分</span>
-            ，而不是无权限也跳404
+            <span class="text-highlight">{{ $t('page.home.features.dynamicPermissionRoutes') }}</span>
+            ,{{ $t('page.home.features.noExtraRouting') }},
+            <span class="text-highlight">{{ $t('page.home.features.distinguish403And404') }}</span>
           </li>
           <li class="py-4">
-            🔐 基于Redis集成
-            <span class="text-highlight">无感刷新</span>
-            ，用户登录态可控，安全与体验缺一不可
+            🔐 {{ $t('page.home.features.redisIntegration') }}
+            <span class="text-highlight">{{ $t('page.home.features.smoothLogin') }}</span>
+            {{ $t('page.home.features.securityAndExperience') }}
           </li>
           <li class="py-4">
-            ✨ 基于 Naive UI 封装
-            <span class="text-highlight">message</span>
-            全局工具方法，支持批量提醒，支持跨页面共享实例
+            ✨ {{ $t('page.home.features.naiveUIMessage') }}
+            <span class="text-highlight">{{ $t('page.home.features.globalToolMethod') }}</span>
           </li>
           <li class="py-4">
-            ⚡️ 基于 Naive UI 封装常用的业务组件，包含
-            <span class="text-highlight">Page</span>
-            组件、
-            <span class="text-highlight">CRUD</span>
-            表格组件及
-            <span class="text-highlight">Modal</span>
-            组件，减少大量重复性工作
+            ⚡️ {{ $t('page.home.features.naiveUIComponents') }}
+            <span class="text-highlight">{{ $t('page.home.features.pageComponent') }}</span>,
+            <span class="text-highlight">{{ $t('page.home.features.crudComponent') }}</span>
+            {{ $t('page.home.features.modalComponent') }}
           </li>
         </ul>
 
         <n-divider class="mb-0! mt-12!">
           <p class="text-14 opacity-60">
-            👉点击
+            👉 {{ $t('page.home.features.click') }}
             <b class="mx-2 transition hover:text-primary">
-              <a href="https://isme.top" target="_blank">更多</a>
+              <a href="https://isme.top" target="_blank">{{ $t('page.home.features.moreLink') }}</a>
             </b>
-            查看更多实用功能，持续开发中...
+            {{ $t('page.home.features.viewMore') }}
           </p>
         </n-divider>
       </n-card>
 
-      <n-card class="ml-12 w-50%" title="🛠️ 技术栈" segmented>
+      <n-card class="ml-12 w-50%" :title="$t('page.home.techStack.title')" segmented>
         <VChart :option="skillOption" autoresize />
       </n-card>
     </div>
 
-    <n-card class="mt-12" title="⚡️ 趋势" segmented>
+    <n-card class="mt-12" :title="$t('page.home.tendencies.title')" segmented>
       <div class="h-400">
         <VChart :option="trendOption" autoresize />
       </div>
@@ -166,7 +146,10 @@ import { GridComponent, LegendComponent, TooltipComponent } from 'echarts/compon
 import * as echarts from 'echarts/core'
 import { UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
+import { inject } from 'vue'
 import VChart from 'vue-echarts'
+
+const t = inject('t') // 注入 t 函数
 
 const userStore = useUserStore()
 
@@ -198,7 +181,7 @@ const trendOption = {
   xAxis: [
     {
       type: 'category',
-      data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+      data: [t('months.Jan'), t('months.Feb'), t('months.Mar'), t('months.Apr'), t('months.May'), t('months.Jun'), t('months.Jul'), t('months.Aug'), t('months.Sep'), t('months.Oct'), t('months.Nov'), t('months.Dec')],
       axisPointer: {
         type: 'shadow',
       },

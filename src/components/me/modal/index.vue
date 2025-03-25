@@ -48,6 +48,7 @@
 </template>
 
 <script setup>
+import { inject } from 'vue'
 import { initDrag } from './utils'
 
 const props = defineProps({
@@ -65,11 +66,11 @@ const props = defineProps({
   },
   cancelText: {
     type: String,
-    default: '取消',
+    default: '',
   },
   okText: {
     type: String,
-    default: '确定',
+    default: '',
   },
   showFooter: {
     type: Boolean,
@@ -100,6 +101,12 @@ const props = defineProps({
     default: () => {},
   },
 })
+
+const t = inject('t') // 注入 t 函数
+
+const cancelTextDefault = computed(() => t('common.Cancel'))
+const okTextDefault = computed(() => t('common.OK'))
+
 // 声明一个show变量，用于控制模态框的显示与隐藏
 const show = ref(false)
 // 声明一个modalOptions变量，用于存储模态框的配置信息
@@ -119,7 +126,12 @@ const okLoading = computed({
 // 打开模态框
 async function open(options = {}) {
   // 将props和options合并赋值给modalOptions
-  modalOptions.value = { ...props, ...options }
+  modalOptions.value = {
+    ...props,
+    ...options,
+    cancelText: (options.cancelText || cancelTextDefault.value),
+    okText: (options.okText || okTextDefault.value),
+  }
 
   // 将show的值设置为true
   show.value = true

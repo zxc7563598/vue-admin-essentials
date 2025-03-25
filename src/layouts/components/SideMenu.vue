@@ -24,6 +24,9 @@
 <script setup>
 import { useAppStore, usePermissionStore } from '@/store'
 import { isExternal } from '@/utils'
+import { inject } from 'vue'
+
+const t = inject('t') // 注入 t 函数
 
 const router = useRouter()
 const route = useRoute()
@@ -42,9 +45,9 @@ function handleMenuSelect(key, item) {
   if (isExternal(item.originPath)) {
     $dialog.confirm({
       type: 'info',
-      title: `请选择打开方式`,
-      positiveText: '外链打开',
-      negativeText: '在本站内嵌打开',
+      title: t('layouts.components.SideMenu.title'),
+      positiveText: t('layouts.components.SideMenu.positiveText'),
+      negativeText: t('layouts.components.SideMenu.negativeText'),
       confirm() {
         window.open(item.originPath)
       },

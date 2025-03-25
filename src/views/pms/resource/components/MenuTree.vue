@@ -9,12 +9,12 @@
 <template>
   <div>
     <n-space vertical :size="12">
-      <h3>菜单</h3>
+      <h3>{{ $t('page.pms.resource.menuTreeTitle') }}</h3>
       <div class="flex">
-        <n-input v-model:value="pattern" placeholder="搜索" clearable />
+        <n-input v-model:value="pattern" :placeholder="$t('common.Search')" clearable />
         <NButton class="ml-12" type="primary" @click="handleAdd()">
           <i class="i-material-symbols:add mr-4 text-14" />
-          新增
+          {{ $t('common.AddNew') }}
         </NButton>
       </div>
 
@@ -28,7 +28,6 @@
         :on-update:selected-keys="onSelect"
         key-field="code"
         label-field="name"
-
         block-line default-expand-all
       />
     </n-space>
@@ -39,7 +38,7 @@
 
 <script setup>
 import { NButton } from 'naive-ui'
-import { withModifiers } from 'vue'
+import { inject, withModifiers } from 'vue'
 import api from '../api'
 import ResAddOrEdit from './ResAddOrEdit.vue'
 
@@ -53,7 +52,12 @@ defineProps({
     default: () => null,
   },
 })
+
+// 注入 t 函数
+
 const emit = defineEmits(['refresh', 'update:currentMenu'])
+
+const t = inject('t')
 
 const pattern = ref('')
 
@@ -61,9 +65,9 @@ const modalRef = ref(null)
 async function handleAdd(data = {}) {
   modalRef.value?.handleOpen({
     action: 'add',
-    title: '新增菜单',
+    title: t('page.pms.resource.addMenu'),
     row: { type: 'MENU', ...data },
-    okText: '保存',
+    okText: t('common.Save'),
   })
 }
 
@@ -82,11 +86,11 @@ function renderSuffix({ option }) {
       {
         text: true,
         type: 'primary',
-        title: '新增下级菜单',
+        title: t('page.pms.resource.addLowerMenu'),
         size: 'tiny',
         onClick: withModifiers(() => handleAdd({ parentId: option.id }), ['stop']),
       },
-      { default: () => '新增' },
+      { default: () => t('common.AddNew') },
     ),
 
     h(
@@ -98,19 +102,19 @@ function renderSuffix({ option }) {
         style: 'margin-left: 12px;',
         onClick: withModifiers(() => handleDelete(option), ['stop']),
       },
-      { default: () => '删除' },
+      { default: () => t('common.Delete') },
     ),
   ]
 }
 
 function handleDelete(item) {
   $dialog.confirm({
-    content: `确认删除【${item.name}】？`,
+    content: t('page.pms.resource.deleteTitle', { name: item.name }),
     async confirm() {
       try {
-        $message.loading('正在删除', { key: 'deleteMenu' })
+        $message.loading(t('page.pms.resource.deleteLoading'), { key: 'deleteMenu' })
         await api.deletePermission({ id: item.id })
-        $message.success('删除成功', { key: 'deleteMenu' })
+        $message.success(t('page.pms.resource.deleteSuccess'), { key: 'deleteMenu' })
         emit('refresh')
         emit('update:currentMenu', null)
       }

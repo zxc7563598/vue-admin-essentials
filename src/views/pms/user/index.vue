@@ -11,7 +11,7 @@
     <template #action>
       <NButton v-permission="'AddUser'" type="primary" @click="handleAdd()">
         <i class="i-material-symbols:add mr-4 text-18" />
-        创建新用户
+        {{ $t('page.pms.user.title') }}
       </NButton>
     </template>
 
@@ -22,26 +22,24 @@
       :columns="columns"
       :get-data="api.read"
     >
-      <MeQueryItem label="用户名" :label-width="50">
+      <MeQueryItem :label="$t('page.pms.user.userName')" :label-width="50">
         <n-input
           v-model:value="queryItems.username"
           type="text"
-          placeholder="请输入用户名"
+          :placeholder="$t('page.pms.user.userNamePlaceholder')"
           clearable
         />
       </MeQueryItem>
 
-      <MeQueryItem label="性别" :label-width="50">
-        <n-select v-model:value="queryItems.gender" clearable :options="genders" />
+      <MeQueryItem :label="$t('page.pms.user.gender')" :label-width="50">
+        <n-select v-model:value="queryItems.gender" clearable :options="genders" :placeholder="$t('common.PleaseSelect')" />
       </MeQueryItem>
 
-      <MeQueryItem label="状态" :label-width="50">
+      <MeQueryItem :label="$t('page.pms.user.status')" :label-width="50">
         <n-select
-          v-model:value="queryItems.enable"
-          clearable
-          :options="[
-            { label: '启用', value: 1 },
-            { label: '停用', value: 0 },
+          v-model:value="queryItems.enable" :placeholder="$t('common.PleaseSelect')" clearable :options="[
+            { label: $t('common.Enable'), value: 1 },
+            { label: $t('common.Disable'), value: 0 },
           ]"
         />
       </MeQueryItem>
@@ -57,32 +55,33 @@
         :disabled="modalAction === 'view'"
       >
         <n-form-item
-          label="用户名"
+          :label="$t('page.pms.user.userName')"
           path="username"
           :rule="{
             required: true,
-            message: '请输入用户名',
+            message: $t('page.pms.user.userNamePlaceholder'),
             trigger: ['input', 'blur'],
           }"
         >
-          <n-input v-model:value="modalForm.username" :disabled="modalAction !== 'add'" />
+          <n-input v-model:value="modalForm.username" :disabled="modalAction !== 'add'" :placeholder="$t('common.PleaseEnter')" />
         </n-form-item>
         <n-form-item
           v-if="['add', 'reset'].includes(modalAction)"
-          :label="modalAction === 'reset' ? '重置密码' : '初始密码'"
+          :label="modalAction === 'reset' ? $t('page.pms.user.resetPassword') : $t('page.pms.user.initPassword')"
           path="password"
           :rule="{
             required: true,
-            message: '请输入密码',
+            message: $t('page.pms.user.passwordPlaceholder'),
             trigger: ['input', 'blur'],
           }"
         >
-          <n-input v-model:value="modalForm.password" />
+          <n-input v-model:value="modalForm.password" :placeholder="$t('common.PleaseEnter')" />
         </n-form-item>
 
-        <n-form-item v-if="['add', 'setRole'].includes(modalAction)" label="角色" path="roleIds">
+        <n-form-item v-if="['add', 'setRole'].includes(modalAction)" :label="$t('page.pms.user.role')" path="roleIds">
           <n-select
             v-model:value="modalForm.roleIds"
+            :placeholder="$t('common.PleaseSelect')"
             :options="roles"
             label-field="name"
             value-field="id"
@@ -91,19 +90,19 @@
             multiple
           />
         </n-form-item>
-        <n-form-item v-if="modalAction === 'add'" label="状态" path="enable">
+        <n-form-item v-if="modalAction === 'add'" :label="$t('page.pms.user.status')" path="enable">
           <NSwitch v-model:value="modalForm.enable">
             <template #checked>
-              启用
+              {{ $t('common.Enable') }}
             </template>
             <template #unchecked>
-              停用
+              {{ $t('common.Disable') }}
             </template>
           </NSwitch>
         </n-form-item>
       </n-form>
       <n-alert v-if="modalAction === 'add'" type="warning" closable>
-        详细信息需由用户本人补充修改
+        {{ $t('page.pms.user.warning') }}
       </n-alert>
     </MeModal>
   </CommonPage>
@@ -114,9 +113,14 @@ import { MeCrud, MeModal, MeQueryItem } from '@/components'
 import { useCrud } from '@/composables'
 import { formatDateTime } from '@/utils'
 import { NAvatar, NButton, NSwitch, NTag } from 'naive-ui'
+import { inject } from 'vue'
 import api from './api'
 
+// 注入 t 函数
+
 defineOptions({ name: 'UserMgt' })
+
+const t = inject('t')
 
 const $table = ref(null)
 /** QueryBar筛选参数（可选） */
@@ -127,8 +131,8 @@ onMounted(() => {
 })
 
 const genders = [
-  { label: '男', value: 1 },
-  { label: '女', value: 2 },
+  { label: t('common.Male'), value: 1 },
+  { label: t('common.Female'), value: 2 },
 ]
 const roles = ref([])
 api.getAllRoles().then(({ data = [] }) => (roles.value = data))
@@ -143,7 +147,7 @@ const {
   handleOpen,
   handleSave,
 } = useCrud({
-  name: '用户',
+  name: t('page.pms.user.user'),
   initForm: { enable: true },
   doCreate: api.create,
   doDelete: api.delete,
@@ -153,7 +157,7 @@ const {
 
 const columns = [
   {
-    title: '头像',
+    title: t('page.pms.user.avatar'),
     key: 'avatar',
     width: 80,
     render: ({ avatar }) =>
@@ -162,9 +166,9 @@ const columns = [
         src: avatar,
       }),
   },
-  { title: '用户名', key: 'username', width: 150, ellipsis: { tooltip: true } },
+  { title: t('page.pms.user.userName'), key: 'username', width: 150, ellipsis: { tooltip: true } },
   {
-    title: '角色',
+    title: t('page.pms.user.role'),
     key: 'roles',
     width: 200,
     ellipsis: { tooltip: true },
@@ -178,18 +182,18 @@ const columns = [
           ),
         )
       }
-      return '暂无角色'
+      return t('page.pms.user.noRole')
     },
   },
   {
-    title: '性别',
+    title: t('page.pms.user.gender'),
     key: 'gender',
     width: 80,
     render: ({ gender }) => genders.find(item => gender === item.value)?.label ?? '',
   },
-  { title: '邮箱', key: 'email', width: 150, ellipsis: { tooltip: true } },
+  { title: t('page.pms.user.email'), key: 'email', width: 150, ellipsis: { tooltip: true } },
   {
-    title: '创建时间',
+    title: t('page.pms.user.createDate'),
     key: 'createDate',
     width: 180,
     render(row) {
@@ -197,7 +201,7 @@ const columns = [
     },
   },
   {
-    title: '状态',
+    title: t('page.pms.user.status'),
     key: 'enable',
     width: 120,
     render: row =>
@@ -211,13 +215,13 @@ const columns = [
           onUpdateValue: () => handleEnable(row),
         },
         {
-          checked: () => '启用',
-          unchecked: () => '停用',
+          checked: () => t('common.Enable'),
+          unchecked: () => t('common.Disable'),
         },
       ),
   },
   {
-    title: '操作',
+    title: t('common.Operation'),
     key: 'actions',
     width: 320,
     align: 'right',
@@ -234,7 +238,7 @@ const columns = [
             onClick: () => handleOpenRolesSet(row),
           },
           {
-            default: () => '分配角色',
+            default: () => t('page.pms.user.setRole'),
             icon: () => h('i', { class: 'i-carbon:user-role text-14' }),
           },
         ),
@@ -244,10 +248,10 @@ const columns = [
             size: 'small',
             type: 'primary',
             style: 'margin-left: 12px;',
-            onClick: () => handleOpen({ action: 'reset', title: '重置密码', row, onOk: onSave }),
+            onClick: () => handleOpen({ action: 'reset', title: t('page.pms.user.resetPassword'), row, onOk: onSave }),
           },
           {
-            default: () => '重置密码',
+            default: () => t('page.pms.user.resetPassword'),
             icon: () => h('i', { class: 'i-radix-icons:reset text-14' }),
           },
         ),
@@ -261,7 +265,7 @@ const columns = [
             onClick: () => handleDelete(row.id),
           },
           {
-            default: () => '删除',
+            default: () => t('common.Delete'),
             icon: () => h('i', { class: 'i-material-symbols:delete-outline text-14' }),
           },
         ),
@@ -275,7 +279,7 @@ async function handleEnable(row) {
   try {
     await api.update({ id: row.id, enable: !row.enable })
     row.enableLoading = false
-    $message.success('操作成功')
+    $message.success(t('common.OperationSuccessfully'))
     $table.value?.handleSearch()
   }
   catch (error) {
@@ -288,7 +292,7 @@ function handleOpenRolesSet(row) {
   const roleIds = row.roles.map(item => item.id)
   handleOpen({
     action: 'setRole',
-    title: '分配角色',
+    title: t('page.pms.user.setRole'),
     row: { id: row.id, username: row.username, roleIds },
     onOk: onSave,
   })
@@ -298,13 +302,13 @@ function onSave() {
   if (modalAction.value === 'setRole') {
     return handleSave({
       api: () => api.update(modalForm.value),
-      cb: () => $message.success('分配成功'),
+      cb: () => $message.success(t('page.pms.user.setRoleSuccess')),
     })
   }
   else if (modalAction.value === 'reset') {
     return handleSave({
       api: () => api.resetPwd({ id: modalForm.value.id, password: modalForm.value.password }),
-      cb: () => $message.success('密码重置成功'),
+      cb: () => $message.success(t('page.pms.user.resetPasswordSuccess')),
     })
   }
   handleSave()

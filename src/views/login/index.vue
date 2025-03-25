@@ -19,8 +19,8 @@
           {{ title }}
         </h2>
         <n-input
-          v-model:value="loginInfo.username" autofocus class="mt-32 h-40 items-center" placeholder="请输入用户名"
-          :maxlength="20"
+          v-model:value="loginInfo.username" autofocus class="mt-32 h-40 items-center"
+          :placeholder="$t('page.login.userPalceholder')" :maxlength="20"
         >
           <template #prefix>
             <i class="i-fe:user mr-12 opacity-20" />
@@ -28,7 +28,8 @@
         </n-input>
         <n-input
           v-model:value="loginInfo.password" class="mt-20 h-40 items-center" type="password"
-          show-password-on="mousedown" placeholder="请输入密码" :maxlength="20" @keydown.enter="handleLogin()"
+          show-password-on="mousedown" :placeholder="$t('page.login.passwordPalceholder')" :maxlength="20"
+          @keydown.enter="handleLogin()"
         >
           <template #prefix>
             <i class="i-fe:lock mr-12 opacity-20" />
@@ -37,8 +38,8 @@
 
         <div class="mt-20 flex items-center">
           <n-input
-            v-model:value="loginInfo.captcha" class="h-40 items-center" palceholder="请输入验证码" :maxlength="6"
-            @keydown.enter="handleLogin()"
+            v-model:value="loginInfo.captcha" class="h-40 items-center"
+            :placeholder="$t('page.login.captchaPalceholder')" :maxlength="6" @keydown.enter="handleLogin()"
           >
             <template #prefix>
               <i class="i-fe:key mr-12 opacity-20" />
@@ -46,11 +47,14 @@
           </n-input>
         </div>
 
-        <n-checkbox class="mt-20" :checked="isRemember" label="记住我" :on-update:checked="(val) => (isRemember = val)" />
+        <n-checkbox
+          class="mt-20" :checked="isRemember" :label="$t('page.login.remember')"
+          :on-update:checked="(val) => (isRemember = val)"
+        />
 
         <div class="mt-20 flex items-center">
           <n-button class="h-40 flex-1 rounded-5 text-16" type="primary" :loading="loading" @click="handleLogin()">
-            登录
+            {{ $t('page.login.submit') }}
           </n-button>
         </div>
       </div>
@@ -64,7 +68,10 @@
 import { useAuthStore } from '@/store'
 import { lStorage } from '@/utils'
 import { useStorage } from '@vueuse/core'
+import { inject } from 'vue'
 import api from './api'
+
+const t = inject('t') // 注入 t 函数
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -88,10 +95,10 @@ const loading = ref(false)
 async function handleLogin() {
   const { username, password, captcha } = loginInfo.value
   if (!username || !password)
-    return $message.warning('请输入用户名和密码')
+    return $message.warning(t('page.login.submitWarning'))
   try {
     loading.value = true
-    $message.loading('正在验证，请稍后...', { key: 'login' })
+    $message.loading(t('page.login.verifying'), { key: 'login' })
     const { data } = await api.login({ username, password: password.toString(), captcha })
     if (isRemember.value) {
       lStorage.set('loginInfo', { username, password })
@@ -112,9 +119,9 @@ async function handleLogin() {
 
 async function onLoginSuccess(data = {}) {
   authStore.setToken(data)
-  $message.loading('登录中...', { key: 'login' })
+  $message.loading(t('page.login.loading'), { key: 'login' })
   try {
-    $message.success('登录成功', { key: 'login' })
+    $message.success(t('page.login.loginSuccess'), { key: 'login' })
     if (route.query.redirect) {
       const path = route.query.redirect
       delete route.query.redirect

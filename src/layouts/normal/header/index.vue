@@ -21,6 +21,8 @@
 
       <Fullscreen />
 
+      <LangSwitcher />
+
       <ThemeSetting class="mr-16" />
 
       <UserAvatar />
@@ -30,5 +32,5 @@
 
 <script setup>
 import { ToggleTheme } from '@/components'
-import { AppTab, BeginnerGuide, Fullscreen, MenuCollapse, UserAvatar } from '@/layouts/components'
+import { AppTab, BeginnerGuide, Fullscreen, LangSwitcher, MenuCollapse, UserAvatar } from '@/layouts/components'
 </script>
