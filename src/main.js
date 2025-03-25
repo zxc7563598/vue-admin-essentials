@@ -38,10 +38,9 @@ async function bootstrap() {
   setupDirectives(app)
   await setupRouter(app)
   app.use(i18n)
-  app.mount('#app')
-  setupNaiveDiscreteApi()
-  // 提供 t 函数
   app.provide('t', i18n.global.t)
+  app.mount('#app')
+  setupNaiveDiscreteApi(i18n.global.t)
 }
 
 bootstrap()

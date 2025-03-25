@@ -10,7 +10,6 @@
 import { useAppStore } from '@/store'
 import { isNullOrUndef } from '@/utils'
 import * as NaiveUI from 'naive-ui'
-import { inject } from 'vue'
 
 export function setupMessage(NMessage) {
   class Message {
@@ -87,14 +86,13 @@ export function setupMessage(NMessage) {
   return new Message()
 }
 
-export function setupDialog(NDialog) {
+export function setupDialog(NDialog, t) { // 将 t 函数作为参数传递
   NDialog.confirm = function (option = {}) {
-    const t = inject('t') // 注入 t 函数
     const showIcon = !isNullOrUndef(option.title)
     return NDialog[option.type || 'warning']({
       showIcon,
-      positiveText: t('common.OK'),
-      negativeText: t('common.Cancel'),
+      positiveText: t('common.OK'), // 使用传递的 t 函数
+      negativeText: t('common.Cancel'), // 使用传递的 t 函数
       onPositiveClick: option.confirm,
       onNegativeClick: option.cancel,
       onMaskClick: option.cancel,
@@ -105,7 +103,7 @@ export function setupDialog(NDialog) {
   return NDialog
 }
 
-export function setupNaiveDiscreteApi() {
+export function setupNaiveDiscreteApi(t) {
   const appStore = useAppStore()
   const configProviderProps = computed(() => ({
     theme: appStore.isDark ? NaiveUI.darkTheme : undefined,
@@ -119,5 +117,7 @@ export function setupNaiveDiscreteApi() {
   window.$loadingBar = loadingBar
   window.$notification = notification
   window.$message = setupMessage(message)
-  window.$dialog = setupDialog(dialog)
+
+  // 传递 t 函数给 setupDialog
+  window.$dialog = setupDialog(dialog, t)
 }
