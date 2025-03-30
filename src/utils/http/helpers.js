@@ -8,11 +8,10 @@
  **********************************/
 
 import { useAuthStore } from '@/store'
-import { inject } from 'vue'
 
 let isConfirming = false
 export function resolveResError(code, message, needTip = true) {
-  const t = inject('t') // 注入 t 函数
+  const t = window.t // 使用全局 t 函数
   switch (code) {
     case 900005:
       if (isConfirming || !needTip)

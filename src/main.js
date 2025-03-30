@@ -39,8 +39,9 @@ async function bootstrap() {
   await setupRouter(app)
   app.use(i18n)
   app.provide('t', i18n.global.t)
-  app.mount('#app')
   setupNaiveDiscreteApi(i18n.global.t)
+  window.t = i18n.global.t
+  app.mount('#app')
 }
 
 bootstrap()
