@@ -16,7 +16,7 @@
 
 ## 预览地址
 
-👉 [点击查看基于此仓库速成页面](https://example.com/)
+👉 [点击查看基于此仓库速成页面](https://tools.hejunjie.life)
 
 ## 安装说明
 
