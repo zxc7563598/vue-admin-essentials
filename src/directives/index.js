@@ -10,9 +10,7 @@ import { router } from '@/router'
 
 const permission = {
   mounted(el, binding) {
-    const currentRoute = unref(router.currentRoute)
-    const btns = currentRoute.meta?.btns?.map(item => item.code) || []
-    if (!btns.includes(binding.value)) {
+    if (!hasPermission(binding.value)) {
       el.remove()
     }
   },
@@ -20,4 +18,10 @@ const permission = {
 
 export function setupDirectives(app) {
   app.directive('permission', permission)
+}
+
+export function hasPermission(code) {
+  const currentRoute = unref(router.currentRoute)
+  const btns = currentRoute.meta?.btns?.map(item => item.code) || []
+  return btns.includes(code)
 }
