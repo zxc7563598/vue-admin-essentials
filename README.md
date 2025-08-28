@@ -7,10 +7,12 @@
 原版虽好但包含过多示例，现深度改造为：
 
 - 🗑️ 移除所有示例页面/冗余组件
-- 🔒 预置接口加密拦截器（接口信息 AES 加密）
+- 🔒 预置接口加密拦截器（接口信息AES加密,随机密钥对,通过RSA传递密钥）
 - 🤝 完美对接我的[PHP后端 基于Webman](https://github.com/zxc7563598/php-webman-essentials)
 - 🕒 从 `git clone` 到看到登录页 ≤5分钟
 - 📦 配合[PHP后端 基于Webman](https://github.com/zxc7563598/php-webman-essentials)，省去所有配置，上手直接开始写业务代码
+
+**注意**:该项目的加密方式契合我的[PHP后端 基于Webman](https://github.com/zxc7563598/php-webman-essentials)，需要将RSA公钥上传到 `public/keys/public_key.pem`，如果是为了对接自己的后台项目，建议还是通过[原项目](https://github.com/zclzone/vue-naive-admin)开始
 
 ---
 

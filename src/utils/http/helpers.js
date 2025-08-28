@@ -14,6 +14,7 @@ export function resolveResError(code, message, needTip = true) {
   const t = window.t // 使用全局 t 函数
   switch (code) {
     case 900005:
+    case 900009:
       if (isConfirming || !needTip)
         return
       isConfirming = true
